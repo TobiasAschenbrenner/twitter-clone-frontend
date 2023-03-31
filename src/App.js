@@ -9,7 +9,7 @@ import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/SignUp";
 
 const isLoggedIn = () => {
-  return localStorage.getItem("userEmail") !== null;
+  return localStorage.getItem("auth_id") !== null;
 };
 
 function App() {
