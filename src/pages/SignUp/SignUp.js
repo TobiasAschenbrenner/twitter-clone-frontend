@@ -51,12 +51,16 @@ const SignUp = () => {
 
   const loginUser = async (email, password) => {
     try {
+      const formData = new URLSearchParams();
+      formData.append("email", email);
+      formData.append("password", password);
+
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({ email, password }),
+        body: formData.toString(),
       });
 
       if (!response.ok) {
