@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-const API_BASE_URL = "https://pstwitter-gxndv7na5vd0.deno.dev";
+const API_BASE_URL = "https://api.chirp.koenidv.de";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

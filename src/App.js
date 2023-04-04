@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Navigate,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/SignUp";
-
-const isLoggedIn = () => {
-  return localStorage.getItem("auth_id") !== null;
-};
+import ValidateToken from "./utils//auth";
 
 function App() {
   return (
@@ -19,7 +11,11 @@ function App() {
         <Route path="/" element={<SignUp />} />
         <Route
           path="/home"
-          element={isLoggedIn() ? <Home /> : <Navigate to="/" />}
+          element={
+            <ValidateToken>
+              <Home />
+            </ValidateToken>
+          }
         />
       </Routes>
     </Router>
