@@ -6,6 +6,7 @@
   bottom: 0;
   left: 0;
   padding: 20px;
+  border-right: 1px solid #666;
 }
 
 .sidebar-links ul {
@@ -30,6 +31,10 @@
 li.tweet-btn {
   border-radius: 30px;
   background-color: #1da1f2;
+}
+
+.tweet-btn:hover {
+  background-color: #0c84d2;
 }
 
 .sidebar-link a:hover {

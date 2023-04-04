@@ -8,9 +8,11 @@ import Feed from "../../components/Feed/Feed";
 function Home() {
   return (
     <div className="Home">
-      <Header />
-      <Sidebar />
-      <Feed />
+      <Header isProfilePage={false} />
+      <div className="content">
+        <Sidebar />
+        <Feed />
+      </div>
       <Footer />
     </div>
   );

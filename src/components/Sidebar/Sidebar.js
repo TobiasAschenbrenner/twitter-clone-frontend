@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -7,22 +8,22 @@ function Sidebar() {
       <div className="sidebar-links">
         <ul>
           <li className="sidebar-link">
-            <a href="./index.js">Home</a>
+            <Link to="/home">Home</Link>
           </li>
           <li className="sidebar-link">
-            <a href="./index.js">Notifications</a>
+            <Link to="/notifications">Notifications</Link>
           </li>
           <li className="sidebar-link">
-            <a href="./index.js">Messages</a>
+            <Link to="/messages">Messages</Link>
           </li>
           <li className="sidebar-link">
-            <a href="./index.js">Profile</a>
+            <Link to="/profile">Profile</Link>
           </li>
           <li className="sidebar-link">
-            <a href="./index.js">More</a>
+            <Link to="/more">More</Link>
           </li>
           <li className="tweet-btn">
-            <a href="./index.js">Tweet</a>
+            <Link to="/tweet">Tweet</Link>
           </li>
         </ul>
       </div>

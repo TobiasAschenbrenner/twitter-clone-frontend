@@ -1,0 +1,21 @@
+header {
+  background-color: #172026;
+  padding: 20px 0;
+  border-bottom: 1px solid #666;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #eaeef1;
+}

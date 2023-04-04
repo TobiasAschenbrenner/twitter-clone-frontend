@@ -1,22 +1,32 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/SignUp";
-import ValidateToken from "./utils//auth";
+import Profile from "./pages/Profile/Profile";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import "./App.css";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignUp />} />
         <Route
           path="/home"
           element={
-            <ValidateToken>
+            <ProtectedRoute>
               <Home />
-            </ValidateToken>
+            </ProtectedRoute>
           }
         />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<SignUp />} />
       </Routes>
     </Router>
   );
