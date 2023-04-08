@@ -95,7 +95,8 @@ const SignUp = () => {
 
   return (
     <div className="signup">
-      <h1>{isLoginForm ? "Log In" : "Sign Up"}</h1>
+      <h1>{isLoginForm ? "Log In" : "Build your Nest"}</h1>
+      {!isLoginForm && <p>Create an Account.</p>}
       <form onSubmit={handleSubmit} className="signup-form">
         <input
           type="email"
