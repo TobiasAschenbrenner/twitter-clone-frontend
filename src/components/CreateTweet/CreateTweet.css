@@ -1,0 +1,72 @@
+.create-tweet-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.create-tweet-form {
+  position: relative;
+  background-color: #172026;
+  border-radius: 10px;
+  padding: 20px;
+  width: 600px;
+  height: 250px;
+  max-width: 600px;
+}
+
+.create-tweet-form textarea {
+  display: block;
+  width: 100%;
+  height: 150px;
+  background-color: #222d32;
+  border: 1px solid #3e4a53;
+  color: #eaeef1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  resize: none;
+}
+
+.submit-btn {
+  display: inline-block;
+  background-color: #1da1f2;
+  color: #eaeef1;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-tweet-form button:hover {
+  background-color: #0c84d2;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: #eaeef1;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #1da1f2;
+  line-height: 0px;
+  text-align: center;
+  padding: 10px 5px;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  color: #c0c6cb;
+}

@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import CreateTweet from "../CreateTweet/CreateTweet";
 
 function Sidebar() {
+  const [isCreatingTweet, setIsCreatingTweet] = useState(false);
+
+  const handleTweetButtonClick = (e) => {
+    e.preventDefault();
+    setIsCreatingTweet((prevState) => !prevState);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-links">
@@ -22,11 +30,14 @@ function Sidebar() {
           <li className="sidebar-link">
             <Link to="/more">More</Link>
           </li>
-          <li className="tweet-btn">
-            <Link to="/tweet">Tweet</Link>
+          <li>
+            <button className="tweet-btn" onClick={handleTweetButtonClick}>
+              Tweet
+            </button>
           </li>
         </ul>
       </div>
+      {isCreatingTweet && <CreateTweet />}
     </div>
   );
 }

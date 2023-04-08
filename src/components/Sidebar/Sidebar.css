@@ -28,15 +28,24 @@
   transition: background-color 0.2s;
 }
 
-li.tweet-btn {
+.sidebar-link a:hover {
+  background-color: #3e4a53;
+}
+
+.tweet-btn {
+  font-size: 15px;
   border-radius: 30px;
   background-color: #1da1f2;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 8px 10px;
+  color: #eaeef1;
+  cursor: pointer;
+  border: none;
+  box-shadow: none;
 }
 
 .tweet-btn:hover {
   background-color: #0c84d2;
-}
-
-.sidebar-link a:hover {
-  background-color: #3e4a53;
 }
