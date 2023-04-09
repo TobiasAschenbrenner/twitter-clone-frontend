@@ -1,12 +1,13 @@
+@import "../../App";
+
 .sidebar {
+  background-color: $color-xdark;
   width: 250px;
-  background-color: #172026;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   padding: 20px;
-  border-right: 1px solid #666;
 }
 
 .sidebar-links ul {
@@ -26,26 +27,30 @@
   color: #eaeef1;
   border-radius: 30px;
   transition: background-color 0.2s;
-}
 
-.sidebar-link a:hover {
-  background-color: #3e4a53;
+  &:hover {
+    background-color: $color-light;
+  }
 }
 
 .tweet-btn {
   font-size: 15px;
-  border-radius: 30px;
-  background-color: #1da1f2;
+  border-radius: 1rem;
+  background-color: $color-light;
   display: inline-block;
   width: 100%;
   text-align: center;
-  padding: 8px 10px;
+  padding: 1rem;
+  margin-top: 1rem;
   color: #eaeef1;
   cursor: pointer;
   border: none;
   box-shadow: none;
-}
+  font-weight: 600;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
 
-.tweet-btn:hover {
-  background-color: #0c84d2;
+  &:hover {
+    background-color: $color-xlight;
+    color: $color-dark;
+  }
 }

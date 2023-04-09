@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.css";
+import "./Sidebar.scss";
 import CreateTweet from "../CreateTweet/CreateTweet";
 
 function Sidebar() {
@@ -32,7 +32,7 @@ function Sidebar() {
           </li>
           <li>
             <button className="tweet-btn" onClick={handleTweetButtonClick}>
-              Tweet
+              Write Something
             </button>
           </li>
         </ul>
