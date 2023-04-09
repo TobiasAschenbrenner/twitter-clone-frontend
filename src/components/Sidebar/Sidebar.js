@@ -13,29 +13,16 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
+      <h1>Chirp</h1>
       <div className="sidebar-links">
-        <ul>
-          <li className="sidebar-link">
-            <Link to="/home">Home</Link>
-          </li>
-          <li className="sidebar-link">
-            <Link to="/notifications">Notifications</Link>
-          </li>
-          <li className="sidebar-link">
-            <Link to="/messages">Messages</Link>
-          </li>
-          <li className="sidebar-link">
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li className="sidebar-link">
-            <Link to="/more">More</Link>
-          </li>
-          <li>
-            <button className="tweet-btn" onClick={handleTweetButtonClick}>
-              Write Something
-            </button>
-          </li>
-        </ul>
+        <Link to="/home">The Forest</Link>
+        <Link to="/notifications">Notifications</Link>
+        <Link to="/messages">Messages</Link>
+        <Link to="/profile">Your Nest</Link>
+        <Link to="/more">More</Link>
+        <button className="tweet-btn" onClick={handleTweetButtonClick}>
+          Write Something
+        </button>
       </div>
       {isCreatingTweet && <CreateTweet />}
     </div>
