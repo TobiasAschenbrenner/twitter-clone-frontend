@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 
+$color-base: #3f3e2d;
+$color-xlight: #a4b494;
+$color-light: #7b7a66;
+$color-medium: #5b5941;
+$color-dark: #2d2c20;
+$color-xdark: #1b1a13;
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #172026;
+  background-color: $color-dark;
   color: #eaeef1;
 }
 
@@ -16,6 +23,8 @@ a {
   color: inherit;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Tilt Warp', sans-serif;
 }
