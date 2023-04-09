@@ -1,3 +1,5 @@
+@import "../../App";
+
 .signup {
   display: flex;
   flex-direction: column;
@@ -16,7 +18,7 @@
   -o-border-radius: 1rem;
 
   @media screen and (min-width: 768px) {
-    background-color: #11161a;
+    background-color: $color-xdark;
   }
 
   .header {
@@ -33,16 +35,16 @@
     margin-top: 10px;
     padding: 5px 10px;
     font-size: 14px;
-    color: #1da1f2;
+    color: $color-xlight;
     background-color: transparent;
-    border: 1px solid #1da1f2;
+    border: 1px solid $color-xlight;
     border-radius: 1rem;
     cursor: pointer;
     transition: background-color 200ms ease-out, color 200ms ease-out;
 
     &:hover {
       color: #fff;
-      background-color: #1da1f2;
+      background-color: $color-xlight;
     }
   }
 
@@ -68,19 +70,22 @@
     border: 1px solid transparent;
     border-radius: 1rem;
     outline: none;
-    background-color: #172026;
+    background-color: $color-dark;
     color: #eaeef1;
     transition: border-color 200ms ease-out;
-
+    
+    &::placeholder {
+      color: white;
+      opacity: 0.5;
+    }
     &:hover {
-      background-color: #232c35;
+      background-color: $color-base;
     }
 
     &:focus {
-      border-color: #1da1f2;
-      background-color: #172026;
+      border-color: $color-light;
+      background-color: $color-base;
       color: #eaeef1;
-      background-color: #232c35;
     }
   }
 
@@ -90,13 +95,14 @@
     font-size: 1rem;
     font-weight: bold;
     color: #eaeef1;
-    background-color: #1da1f2;
+    background-color: $color-light;
     border: none;
     border-radius: 1rem;
     cursor: pointer;
-    transition: background-color 200ms ease-out;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
     &:hover {
-      background-color: #0c84d2;
+      color: $color-dark;
+      background-color: $color-xlight;
     }
   }
 }
