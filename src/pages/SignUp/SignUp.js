@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SignUp.css";
+import "./SignUp.scss";
 
 const API_BASE_URL = "https://api.chirp.koenidv.de";
 
@@ -95,7 +95,10 @@ const SignUp = () => {
 
   return (
     <div className="signup">
-      <h1>{isLoginForm ? "Log In" : "Sign Up"}</h1>
+      <div class="header">
+        <h1>{isLoginForm ? "Log In" : "Build your Nest"}</h1>
+        {!isLoginForm && <p>Create an Account.</p>}
+      </div>
       <form onSubmit={handleSubmit} className="signup-form">
         <input
           type="email"
@@ -147,9 +150,15 @@ const SignUp = () => {
         )}
         <button type="submit">{isLoginForm ? "Log In" : "Sign Up"}</button>
       </form>
-      <button onClick={toggleForm}>
-        {isLoginForm ? "Switch to Sign Up" : "Switch to Log In"}
-      </button>
+      <div class="toggleForm">
+        <p>
+          {isLoginForm
+            ? "Don't have an account yet?"
+            : "Already have an account?"}</p>
+          <button onClick={toggleForm}>
+            {isLoginForm ? "Register now" : "Go to login"}
+          </button>
+      </div>
     </div>
   );
 };

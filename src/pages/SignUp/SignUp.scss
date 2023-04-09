@@ -1,0 +1,102 @@
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+
+  @media screen and (min-width: 768px) {
+    background-color: #11161a;
+  }
+
+  .header {
+    h1 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0
+    }
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #1da1f2;
+    background-color: transparent;
+    border: 1px solid #1da1f2;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+
+    &:hover {
+      color: #fff;
+      background-color: #1da1f2;
+    }
+  }
+
+  .toggleForm {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  border-style: none;
+
+  input {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    outline: none;
+    background-color: #172026;
+    color: #eaeef1;
+    transition: border-color 200ms ease-out;
+
+    &:hover {
+      background-color: #232c35;
+    }
+
+    &:focus {
+      border-color: #1da1f2;
+      background-color: #172026;
+      color: #eaeef1;
+      background-color: #232c35;
+    }
+  }
+
+
+  button[type="submit"] {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #eaeef1;
+    background-color: #1da1f2;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-out;
+    &:hover {
+      background-color: #0c84d2;
+    }
+  }
+}
