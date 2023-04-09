@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-const Header = ({ title, isProfilePage }) => {
+const Header = ({ title, isProfilePage, extendedFeedCb }) => {
   return (
     <header>
       <div className="container">
@@ -15,10 +15,10 @@ const Header = ({ title, isProfilePage }) => {
               <nav>
                 <ul>
                   <li>
-                    <a href="./index.js">Following</a>
+                    <button onClick={() => extendedFeedCb(false)}>Following</button>
                   </li>
                   <li>
-                    <a href="./index.js">Friends are Following</a>
+                    <button onClick={() => extendedFeedCb(true)}>Friends are Following</button>
                   </li>
                 </ul>
               </nav>
