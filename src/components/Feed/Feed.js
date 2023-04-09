@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./Feed.css";
 
-function Feed() {
+function Feed(extendedFeed) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://pstwitter.deno.dev/mock/tweets")
+    fetch(
+      `https://api.chirp.koenidv.de/v1/tweet${extendedFeed ? "/extend" : ""}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // Log data to the console
-        setTweets(data?.tweets || []);
+        setTweets(data || []);
         setLoading(false);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [extendedFeed]);
 
   return (
     <div className="feed">
@@ -32,13 +41,16 @@ function Feed() {
                     className="media"
                   />
                 )}
-                <p className="text">{tweet.text}</p>
+                <p className="text">{tweet.content}</p>
                 <p className="metadata">
                   Posted by: {tweet.author_id} on{" "}
-                  {new Date(tweet.timestamp).toLocaleString()}
+                  {new Date(tweet.created_at).toLocaleString()}
                 </p>
                 <div className="actions">
-                  <span className="likes">{tweet.likes} likes</span>
+                  <span className="likes">{tweet.like_count} likes</span>
+                  <span className="comments">
+                    {tweet.comment_count} comments
+                  </span>
                   {tweet.mentions?.length > 0 && (
                     <ul className="mentions">
                       {tweet.mentions.map((mention) => (

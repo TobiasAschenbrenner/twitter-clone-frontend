@@ -29,15 +29,18 @@ nav li:last-child {
   margin-right: 0;
 }
 
-nav a {
+nav button {
   display: block;
+  font-size: 1rem;
   padding: 8px 10px;
   text-decoration: none;
   color: #eaeef1;
   border-radius: 30px;
+  border: unset;
+  background-color: unset;
   transition: background-color 0.2s;
 }
 
-nav a:hover {
+nav button:hover {
   background-color: #3e4a53;
 }
