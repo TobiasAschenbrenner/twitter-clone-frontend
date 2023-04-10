@@ -5,21 +5,23 @@ import Profile from "../../components/Profile/Profile";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Footer from "../../components/Footer/Footer";
 import Feed from "../../components/Feed/Feed";
+import { useParams } from "react-router-dom";
 
 const API_BASE_URL = "https://api.chirp.koenidv.de";
 
 function ProfilePage() {
   const [userProfile, setUserProfile] = useState({});
+  const { username } = useParams();
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    fetchProfile(username);
+  }, [username]);
 
-  const fetchProfile = async () => {
+  const fetchProfile = async (username) => {
     const token = localStorage.getItem("jwt");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
+      const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -37,11 +39,39 @@ function ProfilePage() {
     }
   };
 
+  const updateProfile = async (updatedProfile) => {
+    const token = localStorage.getItem("jwt");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/v1/user`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedProfile),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const profileData = await response.json();
+      setUserProfile(profileData);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
+  };
+
   return (
     <div className="ProfilePage">
       <Header title={userProfile.displayname} isProfilePage={true} />
       <Sidebar />
-      <Profile userProfile={userProfile} setUserProfile={setUserProfile} />
+      <Profile
+        userProfile={userProfile}
+        updateUserProfile={updateProfile}
+        isCurrentUser={userProfile.username === username}
+      />
       <Feed />
       <Footer />
     </div>

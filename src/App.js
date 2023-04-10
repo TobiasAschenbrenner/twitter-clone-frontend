@@ -19,7 +19,7 @@ function App() {
           }
         />
         <Route
-          path=":username"
+          path="/:username"
           element={
             <ProtectedRoute>
               <Profile />
