@@ -36,6 +36,34 @@ const getUsernameFromJWT = async () => {
   return null;
 };
 
+const getUserId = async (username) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`User ID for ${username}:`, data.id);
+      return data.id;
+    } else {
+      console.error(
+        `Error fetching user ID for ${username}:`,
+        response.status,
+        response.statusText
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error fetching user ID for ${username}:`, error);
+    return null;
+  }
+};
+
 const Profile = ({ userProfile, updateUserProfile }) => {
   const [editing, setEditing] = useState(false);
   const [updatedBio, setUpdatedBio] = useState(userProfile.bio || "");
@@ -57,6 +85,40 @@ const Profile = ({ userProfile, updateUserProfile }) => {
   }, []);
 
   const isCurrentUser = loggedInUsername === userProfile.username;
+  const handleFollow = async () => {
+    try {
+      const user_id = await getUserId(loggedInUsername);
+      const ref_id = await getUserId(userProfile.username);
+
+      if (user_id && ref_id) {
+        const response = await fetch(
+          `${API_BASE_URL}/v1/user/${user_id}/follow`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+            body: JSON.stringify({ follow: true }), // Updated here
+          }
+        );
+
+        if (response.ok) {
+          console.log("Follow successful");
+        } else {
+          console.error(
+            "Error following user:",
+            response.status,
+            response.statusText
+          );
+        }
+      } else {
+        console.error("Error: user_id or ref_id is null");
+      }
+    } catch (error) {
+      console.error("Error following user:", error);
+    }
+  };
 
   const handleEdit = () => {
     setEditing(true);
@@ -115,7 +177,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
             {isCurrentUser ? (
               <button onClick={handleEdit}>Edit Profile</button>
             ) : (
-              <button>Follow</button>
+              <button onClick={handleFollow}>Follow</button>
             )}
           </>
         )}
