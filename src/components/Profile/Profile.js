@@ -48,8 +48,8 @@ const getUserId = async (username) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(`User ID for ${username}:`, data.id);
-      return data.id;
+      console.log(`User ID for ${username}:`, data.user_id);
+      return data.user_id;
     } else {
       console.error(
         `Error fetching user ID for ${username}:`,
@@ -87,12 +87,11 @@ const Profile = ({ userProfile, updateUserProfile }) => {
   const isCurrentUser = loggedInUsername === userProfile.username;
   const handleFollow = async () => {
     try {
-      const user_id = await getUserId(loggedInUsername);
       const ref_id = await getUserId(userProfile.username);
 
-      if (user_id && ref_id) {
+      if (ref_id) {
         const response = await fetch(
-          `${API_BASE_URL}/v1/user/${user_id}/follow`,
+          `${API_BASE_URL}/v1/user/${ref_id}/follow`,
           {
             method: "POST",
             headers: {
