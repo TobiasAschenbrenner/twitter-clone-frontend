@@ -1,6 +1,7 @@
 import EmailForm from "./emailform";
 import PasswordForm from "./passwordform";
 import { useSearchParams } from "react-router-dom";
+import "./resetpassword.scss"
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();

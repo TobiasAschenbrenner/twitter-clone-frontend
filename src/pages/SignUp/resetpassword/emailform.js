@@ -27,7 +27,7 @@ const EmailForm = () => {
     return (
       <div className="signup">
         <div class="header">
-          <h1>On it's way!</h1>
+          <h1>We're flying!</h1>
           <p>Check your emails to continue.</p>
         </div>
       </div>
@@ -36,11 +36,9 @@ const EmailForm = () => {
     return (
       <div className="signup">
         <div class="header">
-          <h1>Forgot your password?</h1>
-          <p>
-            No worries. Just enter your email so we can help you get back to
-            your account.
-          </p>
+          <h1>Being a bit forgetful?</h1>
+          <p>No worries. Everyone forgets their passwords. </p>
+          <p>Use your email to get back to your nest.</p>
         </div>
         <form onSubmit={handleSubmit} className="reset-form">
           <input
