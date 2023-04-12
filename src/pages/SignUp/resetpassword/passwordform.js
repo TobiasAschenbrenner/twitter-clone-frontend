@@ -20,7 +20,7 @@ const PasswordForm = (token) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + token.token,
       },
       body: JSON.stringify({ newpassword: password }),
     });
