@@ -36,34 +36,6 @@ const getUsernameFromJWT = async () => {
   return null;
 };
 
-const getUserId = async (username) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(`User ID for ${username}:`, data.user_id);
-      return data.user_id;
-    } else {
-      console.error(
-        `Error fetching user ID for ${username}:`,
-        response.status,
-        response.statusText
-      );
-      return null;
-    }
-  } catch (error) {
-    console.error(`Error fetching user ID for ${username}:`, error);
-    return null;
-  }
-};
-
 const Profile = ({ userProfile, updateUserProfile }) => {
   const [editing, setEditing] = useState(false);
   const [updatedBio, setUpdatedBio] = useState(userProfile.bio || "");
@@ -93,11 +65,9 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   const handleFollow = async () => {
     try {
-      const ref_id = await getUserId(userProfile.username);
-
-      if (ref_id) {
+      if (userProfile.username) {
         const response = await fetch(
-          `${API_BASE_URL}/v1/user/${ref_id}/follow`,
+          `${API_BASE_URL}/v1/user/${userProfile.username}/follow`,
           {
             method: "POST",
             headers: {
@@ -119,7 +89,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           );
         }
       } else {
-        console.error("Error: user_id or ref_id is null");
+        console.error("Error: userProfile.username is null");
       }
     } catch (error) {
       console.error("Error following/unfollowing user:", error);
@@ -128,11 +98,9 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   const checkFollowStatus = useCallback(async () => {
     try {
-      const ref_id = await getUserId(userProfile.username);
-
-      if (ref_id) {
+      if (userProfile.username) {
         const response = await fetch(
-          `${API_BASE_URL}/v1/user/${ref_id}/follow`,
+          `${API_BASE_URL}/v1/user/${userProfile.username}/follow`,
           {
             method: "GET",
             headers: {
@@ -153,7 +121,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           );
         }
       } else {
-        console.error("Error: user_id or ref_id is null");
+        console.error("Error: userProfile.username is null");
       }
     } catch (error) {
       console.error("Error checking follow status:", error);
