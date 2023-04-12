@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
 const API_BASE_URL = "https://api.chirp.koenidv.de";
@@ -63,6 +63,48 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   const isCurrentUser = loggedInUsername === userProfile.username;
 
+  useEffect(() => {
+    if (!isCurrentUser) {
+      const fetchFollowStatus = async () => {
+        if (loggedInUsername && userProfile.username) {
+          try {
+            const response = await fetch(
+              `${API_BASE_URL}/v1/user/${userProfile.username}/follow`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                },
+              }
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              setFollowing(data);
+              console.log(data);
+              console.log(userProfile);
+            } else {
+              console.error(
+                "Error checking follow status:",
+                response.status,
+                response.statusText
+              );
+            }
+          } catch (error) {
+            console.error("Error checking follow status:", error);
+          }
+        } else {
+          console.error(
+            "Error: userProfile.username or loggedInUsername is null"
+          );
+        }
+      };
+
+      fetchFollowStatus();
+    }
+  }, [loggedInUsername, userProfile.username, userProfile, isCurrentUser]);
+
   const handleFollow = async () => {
     try {
       if (userProfile.username) {
@@ -96,43 +138,12 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     }
   };
 
-  const checkFollowStatus = useCallback(async () => {
-    try {
-      if (userProfile.username) {
-        const response = await fetch(
-          `${API_BASE_URL}/v1/user/${userProfile.username}/follow`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setFollowing(data.following);
-        } else {
-          console.error(
-            "Error checking follow status:",
-            response.status,
-            response.statusText
-          );
-        }
-      } else {
-        console.error("Error: userProfile.username is null");
-      }
-    } catch (error) {
-      console.error("Error checking follow status:", error);
-    }
-  }, [userProfile.username]);
-
-  useEffect(() => {
-    if (!isCurrentUser) {
-      checkFollowStatus();
-    }
-  }, [loggedInUsername, userProfile, checkFollowStatus, isCurrentUser]);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  };
 
   return (
     <div className="profile">
@@ -178,6 +189,15 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           )}
         </>
       )}
+      <p>Joined: {formatDate(userProfile.created_at)}</p>
+      <div className="profile-buttons">
+        <button className="following-button follow-stats-button">
+        {userProfile.count_followings} Following
+        </button>
+        <button className="follower-button follow-stats-button">
+          {userProfile.count_followers} Followers
+        </button>
+      </div>
     </div>
   );
 };

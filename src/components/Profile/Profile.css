@@ -80,3 +80,26 @@
 .profile button:hover .follow {
   display: none;
 }
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 0;
+}
+
+.follow-stats-button {
+  background-color: transparent !important;
+  color: #eaeef1;
+  border: none;
+  padding: 0px 0px !important;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  outline: none;
+  text-decoration: none;
+}
+
+.follow-stats-button:hover {
+  text-decoration: underline !important;
+}
