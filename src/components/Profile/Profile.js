@@ -43,14 +43,17 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     userProfile.displayname || ""
   );
   const [updatedUsername, setUpdatedUsername] = useState("");
+  const [loggedInUsername, setLoggedInUsername] = useState(null);
+  const [following, setFollowing] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [followings, setFollowings] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [showFollowings, setShowFollowings] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(false);
 
   useEffect(() => {
     setUpdatedUsername(userProfile.username || "");
   }, [userProfile]);
-
-  const [loggedInUsername, setLoggedInUsername] = useState(null);
-  const [following, setFollowing] = useState(false);
-  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -138,11 +141,76 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     }
   };
 
+  const fetchFollowings = async () => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/v1/user/${userProfile.username}/following`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setFollowings(data);
+        setShowFollowings(true);
+        setShowFollowers(false);
+      } else {
+        console.error(
+          "Error fetching followings:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching followings:", error);
+    }
+  };
+
+  const fetchFollowers = async () => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/v1/user/${userProfile.username}/followers`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setFollowers(data);
+        setShowFollowers(true);
+        setShowFollowings(false);
+      } else {
+        console.error(
+          "Error fetching followers:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching followers:", error);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
     return `${month} ${year}`;
+  };
+
+  const handleClose = () => {
+    setShowFollowers(false);
+    setShowFollowings(false);
   };
 
   return (
@@ -191,13 +259,53 @@ const Profile = ({ userProfile, updateUserProfile }) => {
       )}
       <p>Joined: {formatDate(userProfile.created_at)}</p>
       <div className="profile-buttons">
-        <button className="following-button follow-stats-button">
-        {userProfile.count_followings} Following
+        <button
+          className="following-button follow-stats-button"
+          onClick={fetchFollowings}
+        >
+          {userProfile.count_followings} Following
         </button>
-        <button className="follower-button follow-stats-button">
+        <button
+          className="follower-button follow-stats-button"
+          onClick={fetchFollowers}
+        >
           {userProfile.count_followers} Followers
         </button>
       </div>
+      {showFollowings && (
+        <div className="modal">
+          <div className="modal-content">
+            <button type="button" className="close-btn" onClick={handleClose}>
+              &times;
+            </button>
+            <h3>Following</h3>
+            <ul>
+              {followings.map((following, index) => (
+                <li key={index}>
+                  {following.displayname} (@{following.username})
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+      {showFollowers && (
+        <div className="modal">
+          <div className="modal-content">
+            <button type="button" className="close-btn" onClick={handleClose}>
+              &times;
+            </button>
+            <h3>Followers</h3>
+            <ul>
+              {followers.map((follower, index) => (
+                <li key={index}>
+                  {follower.displayname} (@{follower.username})
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
