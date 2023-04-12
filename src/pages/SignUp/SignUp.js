@@ -154,11 +154,13 @@ const SignUp = () => {
         <p>
           {isLoginForm
             ? "Don't have an account yet?"
-            : "Already have an account?"}</p>
-          <button onClick={toggleForm}>
-            {isLoginForm ? "Register now" : "Go to login"}
-          </button>
+            : "Already have an account?"}
+        </p>
+        <button onClick={toggleForm}>
+          {isLoginForm ? "Register now" : "Go to login"}
+        </button>
       </div>
+      {isLoginForm && <a href="/resetpassword">Forgot your password?</a>}
     </div>
   );
 };
