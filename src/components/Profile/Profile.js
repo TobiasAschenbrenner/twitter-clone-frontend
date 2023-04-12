@@ -119,7 +119,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
             },
-            body: JSON.stringify({ follow: !following }),
+            body: !following,
           }
         );
 
