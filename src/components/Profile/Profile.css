@@ -68,3 +68,15 @@
 .profile button:hover {
   background-color: #0c84d2;
 }
+
+.profile .unfollow {
+  display: none;
+}
+
+.profile button:hover .unfollow {
+  display: inline;
+}
+
+.profile button:hover .follow {
+  display: none;
+}
