@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // fixme this SHOULD be in a config file
-const API_BASE_URL = "https://api.chirp.koenidv.de";
+const API_BASE_URL = "https://api.thechirp.de";
 
 const EmailForm = () => {
   const [email, setEmail] = useState("");

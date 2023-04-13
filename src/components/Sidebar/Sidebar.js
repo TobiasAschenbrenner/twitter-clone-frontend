@@ -11,15 +11,12 @@ function Sidebar() {
     const fetchUsername = async () => {
       try {
         const token = localStorage.getItem("jwt");
-        const response = await fetch(
-          "https://api.chirp.koenidv.de/v1/user/me",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch("https://api.thechirp.de/v1/user/me", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
         setUsername(data.username);
       } catch (error) {

@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import Feed from "../../components/Feed/Feed";
 import { useParams } from "react-router-dom";
 
-const API_BASE_URL = "https://api.chirp.koenidv.de";
+const API_BASE_URL = "https://api.thechirp.de";
 
 function ProfilePage() {
   const [userProfile, setUserProfile] = useState({});

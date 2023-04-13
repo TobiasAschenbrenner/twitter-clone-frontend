@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // fixme this SHOULD be in a config file
-const API_BASE_URL = "https://api.chirp.koenidv.de";
+const API_BASE_URL = "https://api.thechirp.de";
 
 const PasswordForm = (token) => {
   const [password, setPassword] = useState("");
@@ -45,9 +45,7 @@ const PasswordForm = (token) => {
       <div className="signup">
         <div className="header">
           <h1>Almost there!</h1>
-          <p>
-            Enter a new password
-          </p>
+          <p>Enter a new password</p>
         </div>
         <form onSubmit={handleSubmit} className="reset-form">
           <input

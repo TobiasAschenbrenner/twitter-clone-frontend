@@ -6,16 +6,13 @@ function Feed({ extendedFeed }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(
-      `https://api.chirp.koenidv.de/v1/tweet${extendedFeed ? "/extend" : ""}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      }
-    )
+    fetch(`https://api.thechirp.de/v1/tweet${extendedFeed ? "/extend" : ""}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // Log data to the console
