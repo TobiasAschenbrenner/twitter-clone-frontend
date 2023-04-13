@@ -6,34 +6,30 @@ const API_BASE_URL = "https://api.chirp.koenidv.de";
 const getUsernameFromJWT = async () => {
   const token = localStorage.getItem("jwt");
 
-  if (token) {
-    try {
-      const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        return data.username;
-      } else {
-        console.error(
-          "Error fetching username:",
-          response.status,
-          response.statusText
-        );
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching username:", error);
+    if (response.ok) {
+      const data = await response.json();
+      return data.username;
+    } else {
+      console.error(
+        "Error fetching username:",
+        response.status,
+        response.statusText
+      );
       return null;
     }
+  } catch (error) {
+    console.error("Error fetching username:", error);
+    return null;
   }
-
-  return null;
 };
 
 const Profile = ({ userProfile, updateUserProfile }) => {
@@ -215,7 +211,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   return (
     <div className="profile">
-      <img src={userProfile.avatar_url} alt="Profile" />
+      <img src={userProfile.profile_image_url} alt="Profile" />
       {editing ? (
         <>
           <input

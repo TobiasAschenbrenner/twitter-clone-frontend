@@ -26,7 +26,7 @@ const EmailForm = () => {
   if (submitted) {
     return (
       <div className="signup">
-        <div class="header">
+        <div className="header">
           <h1>We're flying!</h1>
           <p>Check your emails to continue.</p>
         </div>
@@ -35,7 +35,7 @@ const EmailForm = () => {
   } else {
     return (
       <div className="signup">
-        <div class="header">
+        <div className="header">
           <h1>Being a bit forgetful?</h1>
           <p>No worries. Everyone forgets their passwords. </p>
           <p>Use your email to get back to your nest.</p>

@@ -33,7 +33,7 @@ const PasswordForm = (token) => {
   if (submitted) {
     return (
       <div className="signup">
-        <div class="header">
+        <div className="header">
           <h1>All Done!</h1>
           <p>You can now login with your new password.</p>
           <a href="/">Go to Login</a>
@@ -43,7 +43,7 @@ const PasswordForm = (token) => {
   } else {
     return (
       <div className="signup">
-        <div class="header">
+        <div className="header">
           <h1>Almost there!</h1>
           <p>
             Enter a new password

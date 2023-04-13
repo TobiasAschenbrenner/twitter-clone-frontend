@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Feed.css";
 
-function Feed(extendedFeed) {
+function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
 
