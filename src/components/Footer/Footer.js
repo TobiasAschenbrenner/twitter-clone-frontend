@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div className="Footer">
       <footer>
-        <p>&copy; 2023 SavingTwitter</p>
+        <p>&copy; 2023 Chirp</p>
       </footer>
     </div>
   );

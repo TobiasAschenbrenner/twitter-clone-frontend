@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Feed.css";
+import "./Feed.scss";
 
 function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
