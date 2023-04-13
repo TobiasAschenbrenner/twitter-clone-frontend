@@ -39,7 +39,7 @@ function Sidebar() {
         <Link to="/home">The Forest</Link>
         <Link to="/notifications">Notifications</Link>
         <Link to="/messages">Messages</Link>
-        <Link to="/profile">Your Nest</Link>
+        <Link to="/me">Your Nest</Link>
         <Link to="/more">More</Link>
         <button className="tweet-btn" onClick={handleTweetButtonClick}>
           Write Something
