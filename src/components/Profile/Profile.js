@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Profile.css";
+import "./Profile.scss";
 
 const API_BASE_URL = "https://api.thechirp.de";
 
@@ -211,7 +211,6 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   return (
     <div className="profile">
-      <img src={userProfile.profile_image_url} alt="Profile" />
       {editing ? (
         <>
           <input
@@ -235,8 +234,13 @@ const Profile = ({ userProfile, updateUserProfile }) => {
         </>
       ) : (
         <>
-          <h2>{userProfile.displayname}</h2>
-          <p>@{userProfile.username}</p>
+          <div className="flex-row">
+            <img src={userProfile.profile_image_url} alt="Profile" />
+            <div className="flex-col">
+              <h1>{userProfile.displayname}</h1>
+              <p>@{userProfile.username}</p>
+            </div>
+          </div>
           <p>{userProfile.bio}</p>
           {isCurrentUser ? (
             <button onClick={() => setEditing(!editing)}>
