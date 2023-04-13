@@ -3,7 +3,7 @@
 .signup {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   gap: 1.5rem;
   width: 100%;
@@ -27,7 +27,7 @@
     }
 
     p {
-      margin: 0
+      margin: 0;
     }
   }
 
@@ -55,9 +55,14 @@
     justify-content: space-between;
     align-items: baseline;
   }
+
+  a {
+    color: #1da1f2;
+  }
 }
 
-.signup-form {
+.signup-form,
+.reset-form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -88,7 +93,6 @@
       color: #eaeef1;
     }
   }
-
 
   button[type="submit"] {
     padding: 1rem;

@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/SignUp";
 import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ResetPassword from "./pages/SignUp/resetpassword/resetpassword";
 import "./App.scss";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
           }
         />
         <Route
-          path="/profile"
+          path="/:username"
           element={
             <ProtectedRoute>
               <Profile />
@@ -27,6 +28,10 @@ function App() {
           }
         />
         <Route path="/" element={<SignUp />} />
+        <Route
+          path="/resetpassword"
+          element={<ResetPassword />}
+        />
       </Routes>
     </Router>
   );

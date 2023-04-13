@@ -13,10 +13,18 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
           ) : (
             <>
               <nav>
-                <button onClick={() => extendedFeedCb(false)}>Following</button>
-                <button onClick={() => extendedFeedCb(true)}>
-                  Friends are Following
-                </button>
+                <ul>
+                  <li>
+                    <button onClick={() => extendedFeedCb(false)}>
+                      Following
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => extendedFeedCb(true)}>
+                      Friends are Following
+                    </button>
+                  </li>
+                </ul>
               </nav>
             </>
           )}
