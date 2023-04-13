@@ -5,7 +5,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ResetPassword from "./pages/SignUp/resetpassword/resetpassword";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (

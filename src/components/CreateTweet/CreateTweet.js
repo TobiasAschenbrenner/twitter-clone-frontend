@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CreateTweet.css";
+import "./CreateTweet.scss";
 
 const API_BASE_URL = "https://api.thechirp.de";
 
