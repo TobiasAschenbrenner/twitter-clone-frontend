@@ -308,7 +308,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
                 updatedBio,
                 imageUrl
               );
-
+              window.location.reload();
             }}
           >
             Save
