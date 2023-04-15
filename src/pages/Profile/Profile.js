@@ -79,15 +79,15 @@ function ProfilePage() {
       <Profile
         userProfile={userProfile}
         updateUserProfile={(
-          updatedUsername,
           updatedDisplayName,
+          updatedUsername,
           updatedBio,
           updatedProfilePicture
         ) =>
           updateProfile(
             {
-              username: updatedUsername,
               displayname: updatedDisplayName,
+              username: updatedUsername,
               bio: updatedBio,
             },
             updatedProfilePicture

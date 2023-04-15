@@ -256,6 +256,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           />
           <input
             type="text"
+            id="display-name"
             value={updatedDisplayName}
             onChange={(e) => setUpdatedDisplayName(e.target.value)}
           />
@@ -266,6 +267,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
             onChange={(e) => setUpdatedUsername(e.target.value)}
           />
           <textarea
+            id="user-bio"
             value={updatedBio}
             onChange={(e) => setUpdatedBio(e.target.value)}
           ></textarea>
@@ -275,12 +277,13 @@ const Profile = ({ userProfile, updateUserProfile }) => {
               if (selectedFile) {
                 imageUrl = await uploadProfileImage(selectedFile);
               }
-              updateUserProfile(
-                updatedUsername,
+              await updateUserProfile(
                 updatedDisplayName,
+                updatedUsername,
                 updatedBio,
                 imageUrl
               );
+              window.location.reload();
             }}
           >
             Save
