@@ -1,29 +1,5 @@
 @import "../../App";
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  align-items: center;
-
-  h1,
-  p {
-    padding: 0;
-    margin: 0;
-  }
-
-  :last-child {
-    margin-bottom: 0.5rem;
-  }
-
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .profile {
   background-color: $color-xdark;
   border-radius: 1rem;
@@ -34,6 +10,100 @@
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+
+    h1,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0.5rem;
+    }
+
+    .display-name-input {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: "Tilt Warp";
+      padding: 1px 10px;
+    }
+
+    .username-box {
+      display: flex;
+      align-items: center;
+      border-radius: 1rem;
+      overflow: hidden;
+      background-color: $color-dark;
+      max-width: 150px;
+      margin: auto;
+    }
+
+    .username-box .prefix {
+      color: #eaeef1;
+      padding-left: 10px;
+    }
+
+    .username-box input {
+      margin: 0;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      padding: 2px 10px;
+    }
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-picture-label {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .profile-picture-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .profile-picture-edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    color: #eaeef1;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .profile-picture-label:hover .profile-picture-edit {
+    opacity: 1;
+  }
 
   img {
     width: 100px;
@@ -53,6 +123,7 @@
     margin-bottom: 10px;
     font-family: Arial, sans-serif;
     border-radius: 10px;
+    font-size: 1rem;
   }
 
   input[type="text"] {
@@ -102,7 +173,6 @@
   .unfollow {
     display: none;
   }
-
 }
 
 .profile-buttons {

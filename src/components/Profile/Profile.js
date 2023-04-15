@@ -248,27 +248,52 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     <div className="profile">
       {editing ? (
         <>
-          <input
-            type="file"
-            id="profile-picture"
-            accept="image/*"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-          />
-          <input
-            type="text"
-            id="display-name"
-            value={updatedDisplayName}
-            onChange={(e) => setUpdatedDisplayName(e.target.value)}
-          />
-          <input
-            type="text"
-            id="username"
-            value={updatedUsername}
-            onChange={(e) => setUpdatedUsername(e.target.value)}
-          />
+          <div className="flex-row">
+            <label htmlFor="profile-picture" className="profile-picture-label">
+              <img
+                src={updatedProfilePicture || userProfile.profile_image_url}
+                alt="Profile"
+              />
+              <input
+                type="file"
+                id="profile-picture"
+                accept="image/*"
+                className="profile-picture-input"
+                onChange={(e) => {
+                  setSelectedFile(e.target.files[0]);
+                  const imageUrl = URL.createObjectURL(e.target.files[0]);
+                  setUpdatedProfilePicture(imageUrl);
+                }}
+              />
+              <div className="profile-picture-edit">Edit</div>
+            </label>
+            <div className="flex-col">
+              <label htmlFor="display-name">
+                <input
+                  type="text"
+                  id="display-name"
+                  className="display-name-input"
+                  placeholder={userProfile.displayname}
+                  onChange={(e) => setUpdatedDisplayName(e.target.value)}
+                />
+              </label>
+              <label htmlFor="username">
+                <div className="username-box">
+                  <span className="prefix">@</span>
+                  <input
+                    type="text"
+                    id="username"
+                    className="username-input"
+                    placeholder={userProfile.username}
+                    onChange={(e) => setUpdatedUsername(e.target.value)}
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
           <textarea
             id="user-bio"
-            value={updatedBio}
+            placeholder={userProfile.bio}
             onChange={(e) => setUpdatedBio(e.target.value)}
           ></textarea>
           <button
@@ -283,7 +308,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
                 updatedBio,
                 imageUrl
               );
-              window.location.reload();
+
             }}
           >
             Save
