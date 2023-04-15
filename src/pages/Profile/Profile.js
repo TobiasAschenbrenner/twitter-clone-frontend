@@ -39,9 +39,9 @@ function ProfilePage() {
     }
   };
 
-  const updateProfile = async (updatedProfile) => {
+  const updateProfile = async (updatedProfile, updatedProfilePicture) => {
     const token = localStorage.getItem("jwt");
-
+  
     try {
       const response = await fetch(`${API_BASE_URL}/v1/user`, {
         method: "PUT",
@@ -49,15 +49,24 @@ function ProfilePage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(updatedProfile),
+        body: JSON.stringify({
+          ...updatedProfile,
+          profile_image_url: updatedProfilePicture,
+        }),
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const profileData = await response.json();
-      setUserProfile(profileData);
+      // Check if the response has JSON data
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const profileData = await response.json();
+        setUserProfile(profileData);
+      } else {
+        console.warn("No JSON data in response.");
+      }
     } catch (error) {
       console.error("Error updating user profile:", error);
     }
@@ -69,7 +78,21 @@ function ProfilePage() {
       <Sidebar />
       <Profile
         userProfile={userProfile}
-        updateUserProfile={updateProfile}
+        updateUserProfile={(
+          updatedUsername,
+          updatedDisplayName,
+          updatedBio,
+          updatedProfilePicture
+        ) =>
+          updateProfile(
+            {
+              username: updatedUsername,
+              displayname: updatedDisplayName,
+              bio: updatedBio,
+            },
+            updatedProfilePicture
+          )
+        }
         isCurrentUser={userProfile.username === username}
       />
       <Feed />

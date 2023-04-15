@@ -46,6 +46,10 @@ const Profile = ({ userProfile, updateUserProfile }) => {
   const [followers, setFollowers] = useState([]);
   const [showFollowings, setShowFollowings] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [updatedProfilePicture, setUpdatedProfilePicture] = useState(
+    userProfile.profile_image_url || ""
+  );
 
   useEffect(() => {
     setUpdatedUsername(userProfile.username || "");
@@ -197,6 +201,37 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     }
   };
 
+  const uploadProfileImage = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/v1/user/profileimage`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUpdatedProfilePicture(data.profile_image_url);
+        return data.profile_image_url;
+      } else {
+        console.error(
+          "Error uploading profile image:",
+          response.status,
+          response.statusText
+        );
+        return null;
+      }
+    } catch (error) {
+      console.error("Error uploading profile image:", error);
+      return null;
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = date.toLocaleString("default", { month: "long" });
@@ -214,20 +249,39 @@ const Profile = ({ userProfile, updateUserProfile }) => {
       {editing ? (
         <>
           <input
+            type="file"
+            id="profile-picture"
+            accept="image/*"
+            onChange={(e) => setSelectedFile(e.target.files[0])}
+          />
+          <input
             type="text"
             value={updatedDisplayName}
             onChange={(e) => setUpdatedDisplayName(e.target.value)}
+          />
+          <input
+            type="text"
+            id="username"
+            value={updatedUsername}
+            onChange={(e) => setUpdatedUsername(e.target.value)}
           />
           <textarea
             value={updatedBio}
             onChange={(e) => setUpdatedBio(e.target.value)}
           ></textarea>
           <button
-            onClick={updateUserProfile(
-              updatedUsername,
-              updatedDisplayName,
-              updatedBio
-            )}
+            onClick={async () => {
+              let imageUrl = updatedProfilePicture;
+              if (selectedFile) {
+                imageUrl = await uploadProfileImage(selectedFile);
+              }
+              updateUserProfile(
+                updatedUsername,
+                updatedDisplayName,
+                updatedBio,
+                imageUrl
+              );
+            }}
           >
             Save
           </button>
