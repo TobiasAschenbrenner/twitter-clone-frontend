@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Compressor from "compressorjs";
 import "./Profile.scss";
 
 const API_BASE_URL = "https://api.thechirp.de";
@@ -201,9 +202,21 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     }
   };
 
+  const compressImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      new Compressor(file, {
+        quality: 0.6,
+        success: (result) => resolve(result),
+        error: (error) => reject(error),
+      });
+    });
+  };
+
   const uploadProfileImage = async (file) => {
+    const compressed = await compressImage(file);
+    
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", compressed);
 
     try {
       const response = await fetch(`${API_BASE_URL}/v1/user/profileimage`, {
