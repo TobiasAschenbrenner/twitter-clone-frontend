@@ -206,6 +206,9 @@ const Profile = ({ userProfile, updateUserProfile }) => {
     return new Promise((resolve, reject) => {
       new Compressor(file, {
         quality: 0.6,
+        maxHeight: 1024,
+        maxWidth: 1024,
+        resize: true,
         success: (result) => resolve(result),
         error: (error) => reject(error),
       });
@@ -214,7 +217,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
 
   const uploadProfileImage = async (file) => {
     const compressed = await compressImage(file);
-    
+
     const formData = new FormData();
     formData.append("image", compressed);
 
