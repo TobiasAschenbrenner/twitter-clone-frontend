@@ -33,6 +33,33 @@ const getUsernameFromJWT = async () => {
   }
 };
 
+async function fetchAuthorInfo(authorId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/user/${authorId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error(
+        "Error fetching author info:",
+        response.status,
+        response.statusText
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching author info:", error);
+    return null;
+  }
+}
+
 function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,9 +86,17 @@ function Feed({ extendedFeed }) {
         },
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
           console.log(data);
-          setTweets(data || []);
+
+          // Fetch author data for each tweet
+          const authorDataPromises = data.map(async (tweet) => {
+            const authorInfo = await fetchAuthorInfo(tweet.author_id);
+            return { ...tweet, authorInfo };
+          });
+
+          const updatedTweets = await Promise.all(authorDataPromises);
+          setTweets(updatedTweets);
           setLoading(false);
         })
         .catch((error) => console.error(error));
@@ -83,6 +118,19 @@ function Feed({ extendedFeed }) {
           {sortedTweets.length > 0 ? (
             sortedTweets.map((tweet) => (
               <div key={tweet.id} className="tweet">
+                <div className="tweet-header">
+                    <img
+                      src={tweet.authorInfo.profile_image_url}
+                      alt={`${tweet.authorInfo.displayname}'s profile`}
+                      className="profile-picture"
+                    />
+                  <div className="author-info">
+                    <p>
+                      {tweet.authorInfo.displayname}
+                    </p>
+                    <p>@{tweet.authorInfo.username}</p>
+                  </div>
+                </div>
                 {tweet.media?.length > 0 && (
                   <img
                     src={tweet.media[0].url}
@@ -92,8 +140,7 @@ function Feed({ extendedFeed }) {
                 )}
                 <p className="text">{tweet.content}</p>
                 <p className="metadata">
-                  Posted by: {tweet.author_id} on{" "}
-                  {new Date(tweet.created_at).toLocaleString()}
+                  Posted on {new Date(tweet.created_at).toLocaleString()}
                 </p>
                 <div className="actions">
                   <span className="likes">{tweet.like_count} likes</span>
