@@ -119,16 +119,16 @@ function Feed({ extendedFeed }) {
             sortedTweets.map((tweet) => (
               <div key={tweet.id} className="tweet">
                 <div className="tweet-header">
-                    <img
-                      src={tweet.authorInfo.profile_image_url}
-                      alt={`${tweet.authorInfo.displayname}'s profile`}
-                      className="profile-picture"
-                    />
+                  <img
+                    src={tweet.authorInfo.profile_image_url}
+                    alt={`${tweet.authorInfo.displayname}'s profile`}
+                    className="profile-picture"
+                  />
                   <div className="author-info">
-                    <p>
+                    <p className="display-name">
                       {tweet.authorInfo.displayname}
                     </p>
-                    <p>@{tweet.authorInfo.username}</p>
+                    <p className="username">@{tweet.authorInfo.username}</p>
                   </div>
                 </div>
                 {tweet.media?.length > 0 && (
