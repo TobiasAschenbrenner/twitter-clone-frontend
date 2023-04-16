@@ -70,14 +70,18 @@ function Feed({ extendedFeed }) {
     fetchTweets();
   }, [extendedFeed, location.pathname]);
 
+  const sortedTweets = tweets.sort((a, b) => {
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
+
   return (
     <div className="feed">
       {loading ? (
         <p>Loading tweets...</p>
       ) : (
         <>
-          {tweets.length > 0 ? (
-            tweets.map((tweet) => (
+          {sortedTweets.length > 0 ? (
+            sortedTweets.map((tweet) => (
               <div key={tweet.id} className="tweet">
                 {tweet.media?.length > 0 && (
                   <img
