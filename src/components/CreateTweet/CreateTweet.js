@@ -22,6 +22,7 @@ const CreateTweet = () => {
       const tweetId = await response.text();
       console.log("New tweet created with ID:", tweetId);
       // Refresh the tweets list or perform any other action needed after a successful tweet creation
+      window.location.reload();
     } else {
       console.error("Error creating the tweet");
     }
