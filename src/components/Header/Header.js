@@ -74,16 +74,16 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
                 <button onClick={() => extendedFeedCb(true)}>
                   Friends are Following
                 </button>
+                {/* Add search form */}
+                <form className="search-form" onSubmit={handleSearchSubmit}>
+                  <input
+                    type="text"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    placeholder="Search users"
+                  />
+                </form>
               </nav>
-              {/* Add search form */}
-              <form className="search-form" onSubmit={handleSearchSubmit}>
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={handleSearchChange}
-                  placeholder="Search users"
-                />
-              </form>
             </>
           )}
         </div>
