@@ -1,24 +1,25 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import debounce from "lodash.debounce";
 import "./UserSearch.scss";
 import UserSearchResults from "./UserSearchResults";
 
 const UserSearch = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearchChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  const handleSearchQueryChanged = useMemo(
+    () => debounce((e) => commitSearch(e), 300),
+    []
+  );
 
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
+  const commitSearch = async (e) => {
+    console.log(e)
     const token = localStorage.getItem("jwt");
 
-    if (searchValue.trim() !== "") {
+    if (e.target.value.trim() !== "") {
       const API_BASE_URL = "https://api.chirp.koenidv.de";
       const response = await fetch(
-        `${API_BASE_URL}/v1/search/users/${searchValue}`,
+        `${API_BASE_URL}/v1/search/users/${e.target.value}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -42,18 +43,14 @@ const UserSearch = () => {
   };
 
   return (
-    <form className="search-form" onSubmit={handleSearchSubmit}>
+    <div className="search-form">
       <input
         type="text"
-        value={searchValue}
-        onChange={handleSearchChange}
+        onChange={handleSearchQueryChanged}
         placeholder="Search users"
       />
-      <UserSearchResults
-        visible={dropdownVisible}
-        items={searchResults}
-      />
-    </form>
+      <UserSearchResults visible={dropdownVisible} items={searchResults} />
+    </div>
   );
 };
 
