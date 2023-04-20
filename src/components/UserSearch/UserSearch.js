@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./UserSearch.scss";
+import UserSearchResults from "./UserSearchResults";
 
 const UserSearch = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -40,32 +41,6 @@ const UserSearch = () => {
     }
   };
 
-  const renderDropdownList = () => {
-    if (!dropdownVisible) {
-      return null;
-    }
-
-    return (
-      <div className="search-dropdown">
-        {searchResults.map((user) => (
-          <a
-            href={`/${user.username}`}
-            className="search-result"
-            key={user.username}
-          >
-            <div>
-              <img src={user.profile_image_url} alt="avatar" />
-            </div>
-            <div>
-              <h4 className="displayname">{user.displayname}</h4>
-              <p className="username">@{user.username}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <form className="search-form" onSubmit={handleSearchSubmit}>
       <input
@@ -74,7 +49,10 @@ const UserSearch = () => {
         onChange={handleSearchChange}
         placeholder="Search users"
       />
-      {renderDropdownList()}
+      <UserSearchResults
+        visible={dropdownVisible}
+        items={searchResults}
+      />
     </form>
   );
 };
