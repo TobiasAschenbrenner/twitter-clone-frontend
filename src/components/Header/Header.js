@@ -12,10 +12,19 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("jwt");
 
     if (searchValue.trim() !== "") {
       const API_BASE_URL = "https://api.chirp.koenidv.de";
-      const response = await fetch(`${API_BASE_URL}/${searchValue}`);
+      const response = await fetch(
+        `${API_BASE_URL}/v1/search/users/${searchValue}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await response.json();
 
       if (data && data.users) {
