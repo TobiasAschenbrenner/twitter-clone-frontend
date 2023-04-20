@@ -47,13 +47,21 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
 
     return (
       <div className="search-dropdown">
-        <ul>
-          {searchResults.map((user) => (
-            <li key={user.username}>
-              <a href={`/${user.username}`}>{user.username}</a>
-            </li>
-          ))}
-        </ul>
+        {searchResults.map((user) => (
+          <a
+            href={`/${user.username}`}
+            className="search-result"
+            key={user.username}
+          >
+            <div>
+              <img src={user.profile_image_url} alt="avatar" />
+            </div>
+            <div>
+              <h4 className="displayname">{user.displayname}</h4>
+              <p className="username">@{user.username}</p>
+            </div>
+          </a>
+        ))}
       </div>
     );
   };
