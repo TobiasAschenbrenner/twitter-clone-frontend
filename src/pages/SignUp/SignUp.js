@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 
-const API_BASE_URL = "https://api.chirp.koenidv.de";
+const API_BASE_URL = "https://api.thechirp.de";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -95,7 +95,7 @@ const SignUp = () => {
 
   return (
     <div className="signup">
-      <div class="header">
+      <div className="header">
         <h1>{isLoginForm ? "Log In" : "Build your Nest"}</h1>
         {!isLoginForm && <p>Create an Account.</p>}
       </div>
@@ -150,15 +150,17 @@ const SignUp = () => {
         )}
         <button type="submit">{isLoginForm ? "Log In" : "Sign Up"}</button>
       </form>
-      <div class="toggleForm">
+      <div className="toggleForm">
         <p>
           {isLoginForm
             ? "Don't have an account yet?"
-            : "Already have an account?"}</p>
-          <button onClick={toggleForm}>
-            {isLoginForm ? "Register now" : "Go to login"}
-          </button>
+            : "Already have an account?"}
+        </p>
+        <button onClick={toggleForm}>
+          {isLoginForm ? "Register now" : "Go to login"}
+        </button>
       </div>
+      {isLoginForm && <a href="/resetpassword">Forgot your password?</a>}
     </div>
   );
 };

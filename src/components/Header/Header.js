@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Header.css";
+import "./Header.scss";
 
 const Header = ({ title, isProfilePage, extendedFeedCb }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -70,18 +70,10 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
           ) : (
             <>
               <nav>
-                <ul>
-                  <li>
-                    <button onClick={() => extendedFeedCb(false)}>
-                      Following
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => extendedFeedCb(true)}>
-                      Friends are Following
-                    </button>
-                  </li>
-                </ul>
+                <button onClick={() => extendedFeedCb(false)}>Following</button>
+                <button onClick={() => extendedFeedCb(true)}>
+                  Friends are Following
+                </button>
               </nav>
               {/* Add search form */}
               <form className="search-form" onSubmit={handleSearchSubmit}>

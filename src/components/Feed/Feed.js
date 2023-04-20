@@ -1,29 +1,74 @@
 import React, { useEffect, useState } from "react";
-import "./Feed.css";
+import "./Feed.scss";
+import { useLocation } from "react-router-dom";
 
-function Feed(extendedFeed) {
+const API_BASE_URL = "https://api.thechirp.de";
+
+const getUsernameFromJWT = async () => {
+  const token = localStorage.getItem("jwt");
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.username;
+    } else {
+      console.error(
+        "Error fetching username:",
+        response.status,
+        response.statusText
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching username:", error);
+    return null;
+  }
+};
+
+function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
-    fetch(
-      `https://api.chirp.koenidv.de/v1/tweet${extendedFeed ? "/extend" : ""}`,
-      {
+    const username = location.pathname.split("/")[1];
+
+    const fetchTweets = async () => {
+      const currentUser = username === "me" ? await getUsernameFromJWT() : null;
+
+      const fetchUrl =
+        username === "home"
+          ? `${API_BASE_URL}/v1/tweet${extendedFeed ? "/extend" : ""}`
+          : `${API_BASE_URL}/v1/user/${
+              username === "me" ? currentUser : username
+            }/tweets`;
+
+      fetch(fetchUrl, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // Log data to the console
-        setTweets(data || []);
-        setLoading(false);
       })
-      .catch((error) => console.error(error));
-  }, [extendedFeed]);
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setTweets(data || []);
+          setLoading(false);
+        })
+        .catch((error) => console.error(error));
+    };
+
+    fetchTweets();
+  }, [extendedFeed, location.pathname]);
 
   return (
     <div className="feed">

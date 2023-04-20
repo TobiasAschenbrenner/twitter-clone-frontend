@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./CreateTweet.css";
+import "./CreateTweet.scss";
 
-const API_BASE_URL = "https://api.chirp.koenidv.de";
+const API_BASE_URL = "https://api.thechirp.de";
 
 const CreateTweet = () => {
   const [tweetContent, setTweetContent] = useState("");
@@ -49,7 +49,9 @@ const CreateTweet = () => {
             onChange={(e) => setTweetContent(e.target.value)}
             placeholder="What's happening?"
           ></textarea>
-          <button className="submit-btn"type="submit">Post</button>
+          <button className="submit-btn" type="submit">
+            Post
+          </button>
         </form>
       </div>
     )
