@@ -50,8 +50,7 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
         <ul>
           {searchResults.map((user) => (
             <li key={user.username}>
-              {/* Replace the Link with the user's profile link */}
-              <a href={`/profile/${user.username}`}>{user.username}</a>
+              <a href={`/${user.username}`}>{user.username}</a>
             </li>
           ))}
         </ul>
