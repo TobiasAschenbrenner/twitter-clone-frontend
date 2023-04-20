@@ -27,8 +27,8 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
       );
       const data = await response.json();
 
-      if (data && data.users) {
-        setSearchResults(data.users);
+      if (data) {
+        setSearchResults(data);
         setDropdownVisible(true);
       } else {
         setSearchResults([]);
@@ -49,9 +49,9 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
       <div className="search-dropdown">
         <ul>
           {searchResults.map((user) => (
-            <li key={user.id}>
+            <li key={user.username}>
               {/* Replace the Link with the user's profile link */}
-              <a href={`/profile/${user.id}`}>{user.username}</a>
+              <a href={`/profile/${user.username}`}>{user.username}</a>
             </li>
           ))}
         </ul>
