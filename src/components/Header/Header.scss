@@ -66,3 +66,19 @@ input {
     color: #eaeef1;
   }
 }
+
+.search-form {
+  position: relative;
+
+  .search-dropdown {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    outline: 2px solid $color-dark;
+    background-color: $color-xdark;
+    border-radius: 1rem;
+
+  }
+}
