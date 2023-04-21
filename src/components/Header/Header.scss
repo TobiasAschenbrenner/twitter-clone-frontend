@@ -41,3 +41,29 @@ nav button {
     background-color: $color-light;
   }
 }
+
+input {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  outline: none;
+  background-color: $color-dark;
+  color: #eaeef1;
+  transition: border-color 200ms ease-out;
+
+  &::placeholder {
+    color: white;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    background-color: $color-base;
+  }
+
+  &:focus {
+    border-color: $color-light;
+    background-color: $color-base;
+    color: #eaeef1;
+  }
+}

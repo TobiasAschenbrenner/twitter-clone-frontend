@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.scss";
+import UserSearch from "../UserSearch/UserSearch";
 
 const Header = ({ title, isProfilePage, extendedFeedCb }) => {
   return (
@@ -17,6 +18,7 @@ const Header = ({ title, isProfilePage, extendedFeedCb }) => {
                 <button onClick={() => extendedFeedCb(true)}>
                   Friends are Following
                 </button>
+                <UserSearch />
               </nav>
             </>
           )}
