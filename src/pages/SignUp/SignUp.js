@@ -47,13 +47,13 @@ const SignUp = () => {
         throw new Error("Error logging in user after registration");
       }
 
-      const token = localStorage.getItem("jwt");
+      const jwt = localStorage.getItem("jwt");
 
       const responseTwo = await fetch(`${API_BASE_URL}/v1/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify({ username, displayname }),
       });
