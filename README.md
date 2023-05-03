@@ -6,6 +6,8 @@ We created Chirp, a very simple copy of Twitter to learn about Agile Process Man
 [![Backend Repository](https://img.shields.io/badge/Repository-Backend-blue)](https://github.com/koenidv/chirp-backend)
 [![Swagger Docs](https://img.shields.io/badge/API%20Docs-Swagger%20UI-green)](https://docs.api.thechirp.de)
 
+![Bildschirmfoto 2023-05-03 um 18 44 57](https://user-images.githubusercontent.com/81825471/235989365-5919180f-18f3-4bfb-ac13-2ef1ba394b51.png) ![Bildschirmfoto 2023-05-03 um 18 44 31](https://user-images.githubusercontent.com/81825471/235989515-b3150237-560a-4ac1-93f0-45303a579cbb.png)
+
 The frontend is built on React and continuously deployed on Netlify.
 
 [The backend repository can be found here](https://github.com/koenidv/chirp-backend)
