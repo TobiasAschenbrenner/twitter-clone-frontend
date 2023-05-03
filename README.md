@@ -3,7 +3,7 @@
 We created Chirp, a very simple copy of Twitter to learn about Agile Process Management, Collaboration, Web Technologies and Relational Databases. This repository contains the frontend code for Chirp.
 
 [![Open App](https://img.shields.io/badge/Open-Web%20App-blueviolet)](https://thechirp.de)
-[![Frontend Repository](https://img.shields.io/badge/Repository-Frontend-blue)](https://github.com/koenidv/chirp-backend)
+[![Backend Repository](https://img.shields.io/badge/Repository-Frontend-blue)](https://github.com/koenidv/chirp-backend)
 [![Swagger Docs](https://img.shields.io/badge/API%20Docs-Swagger%20UI-green)](https://docs.api.thechirp.de)
 
 The frontend is built on React and continuosly deployed on Netlify.
