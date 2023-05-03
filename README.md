@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Frontend for Chirp: A Twitter clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We created Chirp, a very simple copy of Twitter to learn about Agile Process Management, Collaboration, Web Technologies and Relational Databases. This repository contains the frontend code for Chirp.
 
-## Available Scripts
+[![Open App](https://img.shields.io/badge/Open-Web%20App-blueviolet)](https://thechirp.de)
+[![Backend Repository](https://img.shields.io/badge/Repository-Backend-blue)](https://github.com/koenidv/chirp-backend)
+[![Swagger Docs](https://img.shields.io/badge/API%20Docs-Swagger%20UI-green)](https://docs.api.thechirp.de)
 
-In the project directory, you can run:
+![Bildschirmfoto 2023-05-03 um 18 44 31](https://user-images.githubusercontent.com/81825471/235989515-b3150237-560a-4ac1-93f0-45303a579cbb.png)
 
-### `npm start`
+The frontend is built on React and continuously deployed on Netlify.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[The backend repository can be found here](https://github.com/koenidv/chirp-backend)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To get started with Chirp, clone this repository to your local machine and follow the instructions provided below.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+Before you begin, ensure that you have the following installed on your machine:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Node.js](https://nodejs.org/en/download/)
+- [npm](https://docs.npmjs.com/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+   
+```git clone https://github.com/TobiasAschenbrenner/twitter-clone-frontend.git```
 
-### `npm run eject`
+2. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```npm install```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Running the Application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Start the development server:
+   
+```npm start```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Open your browser and navigate to `http://localhost:3000`.
 
-## Learn More
+You should now see the Chirp Login Page!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Bildschirmfoto 2023-05-03 um 18 44 57](https://user-images.githubusercontent.com/81825471/235989365-5919180f-18f3-4bfb-ac13-2ef1ba394b51.png) 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment
 
-### Code Splitting
+To create a production build, run the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```npm run build```
 
-### Analyzing the Bundle Size
+This command will generate a `build` directory with the optimized production build. For deployment instructions specific to your preferred platform, please refer to their respective documentation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project Architecture
 
-### Making a Progressive Web App
+![Diagram of Project Architecture](https://user-images.githubusercontent.com/32238636/234537319-c985eb14-b7b1-4aee-9dec-dc9f81e96af7.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
+We welcome contributions to Chirp! To contribute, please follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Fork the repository.
+2. Create a new branch with a descriptive name.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request against the `main` branch.
 
-### Deployment
+## Team
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+We are software engineering students at the CODE University of Applied Sciences in Berlin.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Tobias Aschenbrenner](https://github.com/TobiasAschenbrenner) <br>
+[Florian König](https://github.com/koenidv) <br>
+[Benedict Löffler](https://github.com/beneloe)
