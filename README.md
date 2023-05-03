@@ -3,44 +3,70 @@
 We created Chirp, a very simple copy of Twitter to learn about Agile Process Management, Collaboration, Web Technologies and Relational Databases. This repository contains the frontend code for Chirp.
 
 [![Open App](https://img.shields.io/badge/Open-Web%20App-blueviolet)](https://thechirp.de)
-[![Backend Repository](https://img.shields.io/badge/Repository-Frontend-blue)](https://github.com/koenidv/chirp-backend)
+[![Backend Repository](https://img.shields.io/badge/Repository-Backend-blue)](https://github.com/koenidv/chirp-backend)
 [![Swagger Docs](https://img.shields.io/badge/API%20Docs-Swagger%20UI-green)](https://docs.api.thechirp.de)
 
-The frontend is built on React and continuosly deployed on Netlify.
+The frontend is built on React and continuously deployed on Netlify.
 
-[The frontend repository can be found here](https://github.com/TobiasAschenbrenner/twitter-clone-frontend)
+[The backend repository can be found here](https://github.com/koenidv/chirp-backend)
 
-# Getting Started with Create React App
+## Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To get started with Chirp, clone this repository to your local machine and follow the instructions provided below.
 
-## Available Scripts
+### Prerequisites
 
-In the project directory, you can run:
+Before you begin, ensure that you have the following installed on your machine:
 
-### `npm start`
+- [Node.js](https://nodejs.org/en/download/)
+- [npm](https://docs.npmjs.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository:
+   
+```git clone https://github.com/TobiasAschenbrenner/twitter-clone-frontend.git```
 
-### `npm test`
+2. Install dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```npm install```
 
-### `npm run build`
+## Running the Application
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Start the development server:
+   
+```npm start```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Open your browser and navigate to `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You should now see the Chirp Login Page!
+
+## Deployment
+
+To create a production build, run the following command:
+
+```npm run build```
+
+This command will generate a `build` directory with the optimized production build. For deployment instructions specific to your preferred platform, please refer to their respective documentation.
 
 ## Project Architecture
 
-![Project Architecture](https://user-images.githubusercontent.com/32238636/234537319-c985eb14-b7b1-4aee-9dec-dc9f81e96af7.png)
+![Diagram of Project Architecture](https://user-images.githubusercontent.com/32238636/234537319-c985eb14-b7b1-4aee-9dec-dc9f81e96af7.png)
+
+## Contributing
+
+We welcome contributions to Chirp! To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request against the `main` branch.
+
+## Team
+
+We are software engineering students at the CODE University of Applied Sciences in Berlin.
+
+[Tobias Aschenbrenner](https://github.com/TobiasAschenbrenner)
+[Florian König](https://github.com/koenidv)
+[Benedict Löffler](https://github.com/beneloe)
