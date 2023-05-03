@@ -6,7 +6,7 @@ We created Chirp, a very simple copy of Twitter to learn about Agile Process Man
 [![Backend Repository](https://img.shields.io/badge/Repository-Backend-blue)](https://github.com/koenidv/chirp-backend)
 [![Swagger Docs](https://img.shields.io/badge/API%20Docs-Swagger%20UI-green)](https://docs.api.thechirp.de)
 
-![Bildschirmfoto 2023-05-03 um 18 44 57](https://user-images.githubusercontent.com/81825471/235989365-5919180f-18f3-4bfb-ac13-2ef1ba394b51.png) ![Bildschirmfoto 2023-05-03 um 18 44 31](https://user-images.githubusercontent.com/81825471/235989515-b3150237-560a-4ac1-93f0-45303a579cbb.png)
+![Bildschirmfoto 2023-05-03 um 18 44 31](https://user-images.githubusercontent.com/81825471/235989515-b3150237-560a-4ac1-93f0-45303a579cbb.png)
 
 The frontend is built on React and continuously deployed on Netlify.
 
@@ -43,6 +43,8 @@ Before you begin, ensure that you have the following installed on your machine:
 
 You should now see the Chirp Login Page!
 
+![Bildschirmfoto 2023-05-03 um 18 44 57](https://user-images.githubusercontent.com/81825471/235989365-5919180f-18f3-4bfb-ac13-2ef1ba394b51.png) 
+
 ## Deployment
 
 To create a production build, run the following command:
@@ -69,6 +71,6 @@ We welcome contributions to Chirp! To contribute, please follow these steps:
 
 We are software engineering students at the CODE University of Applied Sciences in Berlin.
 
-[Tobias Aschenbrenner](https://github.com/TobiasAschenbrenner)
-[Florian König](https://github.com/koenidv)
+[Tobias Aschenbrenner](https://github.com/TobiasAschenbrenner) <br>
+[Florian König](https://github.com/koenidv) <br>
 [Benedict Löffler](https://github.com/beneloe)
