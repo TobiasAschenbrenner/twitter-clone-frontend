@@ -33,6 +33,50 @@ const getUsernameFromJWT = async () => {
   }
 };
 
+async function handleLikeOrUnlikeTweet(tweet_id) {
+  const token = localStorage.getItem("jwt");
+
+  try {
+    const like_status = await fetch(
+      `${API_BASE_URL}/v1/tweet/${tweet_id}/like`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    await fetch(`${API_BASE_URL}/v1/tweet/${tweet_id}/like`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: like_status ? false : true,
+    });
+
+    const tweetResponse = await fetch(
+      `${API_BASE_URL}/v1/tweet/${tweet_id}/like/all`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const updatedTweet = await tweetResponse.json();
+
+    return updatedTweet;
+  } catch (error) {
+    console.error("Error liking/unliking tweet:", error);
+    return null;
+  }
+}
+
 function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,6 +114,21 @@ function Feed({ extendedFeed }) {
     fetchTweets();
   }, [extendedFeed, location.pathname]);
 
+  const onLikeClick = async (tweet_id) => {
+    console.log("Clicked like/unlike for tweetId: ", tweet_id);
+    const updatedTweet = await handleLikeOrUnlikeTweet(tweet_id);
+
+    if (updatedTweet) {
+      setTweets((tweets) =>
+        tweets.map((tweet) =>
+          tweet.tweet_id === tweet_id
+            ? { ...tweet, like_count: updatedTweet.like_count }
+            : tweet
+        )
+      );
+    }
+  };
+
   return (
     <div className="feed">
       {loading ? (
@@ -92,7 +151,13 @@ function Feed({ extendedFeed }) {
                   {new Date(tweet.created_at).toLocaleString()}
                 </p>
                 <div className="actions">
-                  <span className="likes">{tweet.like_count} likes</span>
+                  <button
+                    onClick={() =>
+                      tweet.tweet_id && onLikeClick(tweet.tweet_id)
+                    }
+                  >
+                    {tweet.like_count} likes
+                  </button>
                   <span className="comments">
                     {tweet.comment_count} comments
                   </span>
