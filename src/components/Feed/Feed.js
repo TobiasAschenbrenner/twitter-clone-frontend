@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Feed.scss";
 import { useLocation } from "react-router-dom";
+import CreateComment from "../CreateComment/CreateComment";
 
 const API_BASE_URL = "https://api.thechirp.de";
 
@@ -77,10 +78,44 @@ async function handleLikeOrUnlikeTweet(tweet_id) {
   }
 }
 
+async function handleCommentOnTweet(tweet_id, comment) {
+  const token = localStorage.getItem("jwt");
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/v1/tweet/${tweet_id}/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: comment,
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error(
+        "Error commenting on tweet:",
+        response.status,
+        response.statusText
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Error commenting on tweet:", error);
+    return null;
+  }
+}
+
 function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const [comment, setComment] = useState(false);
 
   useEffect(() => {
     const username = location.pathname.split("/")[1];
@@ -129,6 +164,12 @@ function Feed({ extendedFeed }) {
     }
   };
 
+  const onCommentClick = async (tweet_id) => {
+    console.log("Clicked comment for tweetId: ", tweet_id);
+    setComment((prevState) => !prevState);
+    await handleCommentOnTweet(tweet_id, comment);
+  };
+
   return (
     <div className="feed">
       {loading ? (
@@ -158,9 +199,13 @@ function Feed({ extendedFeed }) {
                   >
                     {tweet.like_count} likes
                   </button>
-                  <span className="comments">
+                  <button
+                    onClick={() =>
+                      tweet.tweet_id && onCommentClick(tweet.tweet_id)
+                    }
+                  >
                     {tweet.comment_count} comments
-                  </span>
+                  </button>
                   {tweet.mentions?.length > 0 && (
                     <ul className="mentions">
                       {tweet.mentions.map((mention) => (
@@ -171,6 +216,7 @@ function Feed({ extendedFeed }) {
                     </ul>
                   )}
                 </div>
+                {comment && <CreateComment />}
               </div>
             ))
           ) : (
