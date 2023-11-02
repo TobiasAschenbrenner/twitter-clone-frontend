@@ -6,8 +6,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Footer from "../../components/Footer/Footer";
 import Feed from "../../components/Feed/Feed";
 import { useParams } from "react-router-dom";
-
-const API_BASE_URL = "https://api.thechirp.de";
+import { API_BASE_URL } from "../../config";
 
 function ProfilePage() {
   const [userProfile, setUserProfile] = useState({});

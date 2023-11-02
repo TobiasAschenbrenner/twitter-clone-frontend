@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import Footer from '../../../components/Footer/Footer';
-import Header from '../../../components/Header/Header';
-import Sidebar from '../../../components/Sidebar/Sidebar';
 import Container from '../Container';
+import { API_BASE_URL } from '../../../config';
 
 const SessionsPage = () => {
     const [sessions, setSessions] = useState(undefined)
 
     const fetchSessions = () => {
-        fetch(`https://api.thechirp.de/v1/auth/sessions`, {
+        fetch(`${API_BASE_URL}/v1/auth/sessions`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -21,7 +19,7 @@ const SessionsPage = () => {
 
     const handleInvalidateSession = (session_id) => {
         setSessions((current) => current.filter(session => session.session_id !== session_id))
-        fetch(`https://api.thechirp.de/v1/auth/signout/${session_id}`, {
+        fetch(`${API_BASE_URL}/v1/auth/signout/${session_id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

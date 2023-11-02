@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Feed.scss";
 import { useLocation } from "react-router-dom";
-
-const API_BASE_URL = "https://api.thechirp.de";
+import { API_BASE_URL } from "../../config";
 
 const getUsernameFromJWT = async () => {
   const token = localStorage.getItem("jwt");

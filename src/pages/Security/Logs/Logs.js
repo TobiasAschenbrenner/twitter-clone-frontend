@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import Container from "../Container";
+import { API_BASE_URL } from "../../../config";
 
 const LogsPage = () => {
     const [logs, setLogs] = useState(undefined)
 
     const fetchLogs = () => {
-        fetch(`https://api.thechirp.de/v1/auth/logs`, {
+        fetch(`${API_BASE_URL}/v1/auth/logs`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -17,7 +18,7 @@ const LogsPage = () => {
     }
 
     const handleInvalidateSession = (session_id) => {
-        fetch(`https://api.thechirp.de/v1/auth/signout/${session_id}`, {
+        fetch(`${API_BASE_URL}/v1/auth/signout/${session_id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
