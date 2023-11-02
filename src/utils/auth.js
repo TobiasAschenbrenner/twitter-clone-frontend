@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE_URL = "https://api.thechirp.de";
+import { API_BASE_URL } from "../../config";
 
 const ValidateToken = ({ children }) => {
   const [isValid, setIsValid] = useState(false);

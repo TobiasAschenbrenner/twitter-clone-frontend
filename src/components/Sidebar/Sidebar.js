@@ -19,6 +19,8 @@ function Sidebar() {
         <Link to="/notifications">Notifications</Link>
         <Link to="/messages">Messages</Link>
         <Link to="/me">Your Nest</Link>
+        <Link to="/security/sessions">[Sec] Sessions</Link>
+        <Link to="/security/logs">[Sec] Logs</Link>
         <Link to="/more">More</Link>
         <button className="tweet-btn" onClick={handleTweetButtonClick}>
           Write Something

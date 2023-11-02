@@ -1,7 +1,5 @@
 import { useState } from "react";
-
-// fixme this SHOULD be in a config file
-const API_BASE_URL = "https://api.thechirp.de";
+import { API_BASE_URL } from "../../../config";
 
 const PasswordForm = (token) => {
   const [password, setPassword] = useState("");
