@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.scss";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "../../utils/Authentication";
 
 const getUsernameFromJWT = async () => {
-  const token = localStorage.getItem("jwt");
+  const jwt = await Authentication.getInstance().getJwt();
 
   try {
     const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
 
@@ -72,7 +73,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                  Authorization: `Bearer ${await Authentication.getInstance().getJwt()}`,
                 },
               }
             );
@@ -112,7 +113,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+              Authorization: `Bearer ${await Authentication.getInstance().getJwt()}`,
             },
             body: !following,
           }
@@ -144,7 +145,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            Authorization: `Bearer ${await Authentication.getInstance().getJwt()}`,
           },
         }
       );
@@ -174,7 +175,7 @@ const Profile = ({ userProfile, updateUserProfile }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            Authorization: `Bearer ${await Authentication.getInstance().getJwt()}`,
           },
         }
       );

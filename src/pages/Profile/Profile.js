@@ -5,25 +5,28 @@ import Profile from "../../components/Profile/Profile";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Footer from "../../components/Footer/Footer";
 import Feed from "../../components/Feed/Feed";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "../../utils/Authentication";
 
 function ProfilePage() {
   const [userProfile, setUserProfile] = useState({});
   const { username } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProfile(username);
   }, [username]);
 
   const fetchProfile = async (username) => {
-    const token = localStorage.getItem("jwt");
+    const jwt = await Authentication.getInstance().getJwt();
+    if (!jwt) navigate("/");
 
     try {
       const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${jwt}`,
         },
       });
 
@@ -39,14 +42,15 @@ function ProfilePage() {
   };
 
   const updateProfile = async (updatedProfile) => {
-    const token = localStorage.getItem("jwt");
+    const jwt = await Authentication.getInstance().getJwt();
+    if (!jwt) navigate("/");
 
     try {
       const response = await fetch(`${API_BASE_URL}/v1/user`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${jwt}`,
         },
         body: JSON.stringify(updatedProfile),
       });

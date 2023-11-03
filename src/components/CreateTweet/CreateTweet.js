@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import "./CreateTweet.scss";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "../../utils/Authentication";
+import { useNavigate } from "react-router-dom";
 
 const CreateTweet = () => {
   const [tweetContent, setTweetContent] = useState("");
   const [show, setShow] = useState(true);
+  const navigate = useNavigate();
 
   const handleNewTweet = async (tweetContent) => {
     // Call the API to create a new tweet with the tweetContent
+    const jwt = await Authentication.getInstance().getJwt();
+    if (!jwt) navigate("/");
     const response = await fetch(`${API_BASE_URL}/v1/tweet`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        Authorization: `Bearer ${jwt}`,
       },
       body: JSON.stringify({ content: tweetContent, mentions: [] }), // Assuming no mentions for now
     });

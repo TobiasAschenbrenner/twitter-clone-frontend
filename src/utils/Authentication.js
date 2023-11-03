@@ -6,7 +6,7 @@ export class Authentication {
 
     jwt = localStorage.getItem("jwt");
     refreshtoken = localStorage.getItem("refreshtoken");
-    validUntil = localStorage.get("jwt_exp");
+    validUntil = localStorage.getItem("jwt_exp");
 
     constructor() {
         this._instance = this;
@@ -28,21 +28,21 @@ export class Authentication {
             body: JSON.stringify({ email, password }),
         });
 
-        if (response.ok) {
+        if (!response.ok) {
             console.error(`Error in user ${action}: Invalid email or password`);
             return false;
         }
 
-        const { jwt, refreshtoken, exp } = await response.json();
-        if (!jwt || !refreshtoken || !exp) {
+        const { jwt, refreshToken, exp } = await response.json();
+        if (!jwt || !refreshToken || !exp) {
             console.error(`Error in user ${action}: Missing token or expiration`);
             return false;
         }
 
         this.jwt = jwt;
         localStorage.setItem("jwt", jwt);
-        this.refreshtoken = refreshtoken;
-        localStorage.setItem("refreshtoken", refreshtoken);
+        this.refreshtoken = refreshToken;
+        localStorage.setItem("refreshtoken", refreshToken);
         this.validUntil = exp;
         localStorage.setItem("jwt_exp", exp);
         return jwt;
@@ -58,7 +58,7 @@ export class Authentication {
 
     shouldRefreshToken() {
         if (!this.validUntil) return true;
-        return Date.now() >= this.validUntil;
+        return Math.floor(Date.now() / 1000) >= this.validUntil;
     }
 
     async refreshJwt() {
@@ -75,26 +75,22 @@ export class Authentication {
             return false;
         }
 
-        const { jwt, refreshtoken, exp } = await response.json();
-        if (!jwt || !refreshtoken || !exp) {
+        const { jwt, exp } = await response.json();
+        if (!jwt || !exp) {
             console.error("Error refreshing token: Missing token or expiration");
             return false;
         }
 
         this.jwt = jwt;
         localStorage.setItem("jwt", jwt);
-        this.refreshtoken = refreshtoken;
-        localStorage.setItem("refreshtoken", refreshtoken);
         this.validUntil = exp;
         localStorage.setItem("jwt_exp", exp);
-        return true;
+        return jwt;
     }
 
     async getJwt() {
-        if (this.shouldRefreshToken()) {
-            await this.refreshJwt();
-        }
-        return this.jwt;
+        if (this.shouldRefreshToken()) return await this.refreshJwt();
+        else return this.jwt;
     }
 
 }

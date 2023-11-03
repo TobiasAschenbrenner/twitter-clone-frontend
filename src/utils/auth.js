@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "./Authentication";
 
 const ValidateToken = ({ children }) => {
   const [isValid, setIsValid] = useState(false);
@@ -9,7 +10,7 @@ const ValidateToken = ({ children }) => {
 
   useEffect(() => {
     const validateJwt = async () => {
-      const jwt = localStorage.getItem("jwt");
+      const jwt = await Authentication.getInstance().getJwt();
 
       if (!jwt) {
         navigate("/");

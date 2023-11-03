@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 import Container from "../Container";
 import { API_BASE_URL } from "../../../config";
+import { Authentication } from "../../../utils/Authentication";
+import { useNavigate } from "react-router-dom";
 
 const LogsPage = () => {
     const [logs, setLogs] = useState(undefined)
+    const navigate = useNavigate();
 
-    const fetchLogs = () => {
+    
+    const fetchLogs = async () => {
+        const jwt = await Authentication.getInstance().getJwt();
+        if (!jwt) navigate("/");
         fetch(`${API_BASE_URL}/v1/auth/logs`, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                Authorization: `Bearer ${jwt}`,
             },
         })
             .then(res => res.json())
@@ -17,12 +23,14 @@ const LogsPage = () => {
         // we're not gonna catch because i can't think of any way to make this code worse
     }
 
-    const handleInvalidateSession = (session_id) => {
+    const handleInvalidateSession = async (session_id) => {
+        const jwt = await Authentication.getInstance().getJwt();
+        if (!jwt) navigate("/");
         fetch(`${API_BASE_URL}/v1/auth/signout/${session_id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                Authorization: `Bearer ${jwt}`,
             },
         })
     }

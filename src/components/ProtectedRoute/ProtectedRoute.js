@@ -1,12 +1,19 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { Authentication } from "../../utils/Authentication";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = () => {
-    return localStorage.getItem("jwt") !== null;
-  };
+  const [loggedIn, setLoggedIn] = useState(true);
+  
+  useEffect(() => {
+    Authentication.getInstance().getJwt().then((jwt) => {
+      if (!jwt) setLoggedIn(false);
+    });
+  }, []);
 
-  if (isLoggedIn()) {
+  if (loggedIn) {
     return children;
   } else {
     return <Navigate to="/" />;

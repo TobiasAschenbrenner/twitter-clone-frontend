@@ -18,7 +18,12 @@ const SignUp = () => {
     event.preventDefault();
 
     if (isLoginForm) {
-      if (await Authentication.loginUser(email, password)) navigate("/home");
+      const jwt = await Authentication.getInstance().login(email, password);
+      if (jwt) {
+        navigate("/home");
+      } else {
+        alert("Invalid credentials.");
+      }
     } else {
       if (password === confirmPassword) {
         registerUser(email, password, username, displayname);
@@ -30,7 +35,7 @@ const SignUp = () => {
 
   const registerUser = async (email, password, username, displayname) => {
     try {
-      const jwt = await Authentication.register(email, password);
+      const jwt = await Authentication.getInstance().register(email, password);
       if (!jwt) {
         throw new Error("Error registering user");
       }

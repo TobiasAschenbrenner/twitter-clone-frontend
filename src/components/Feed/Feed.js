@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./Feed.scss";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "../../utils/Authentication";
 
 const getUsernameFromJWT = async () => {
-  const token = localStorage.getItem("jwt");
+  // bro wtf is this
+  const jwt = await Authentication.getInstance().getJwt();
 
   try {
     const response = await fetch(`${API_BASE_URL}/v1/user/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
 
@@ -35,13 +37,16 @@ const getUsernameFromJWT = async () => {
 function Feed({ extendedFeed }) {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
+  const navigate = useLocation();
 
   useEffect(() => {
-    const username = location.pathname.split("/")[1];
+    const username = navigate.pathname.split("/")[1];
 
     const fetchTweets = async () => {
       const currentUser = username === "me" ? await getUsernameFromJWT() : null;
+      
+      const jwt = await Authentication.getInstance().getJwt();
+      if (!jwt) navigate("/");
 
       const fetchUrl =
         username === "home"
@@ -54,7 +59,7 @@ function Feed({ extendedFeed }) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
+          Authorization: "Bearer " + jwt,
         },
       })
         .then((response) => response.json())
@@ -67,7 +72,7 @@ function Feed({ extendedFeed }) {
     };
 
     fetchTweets();
-  }, [extendedFeed, location.pathname]);
+  }, [extendedFeed, navigate, navigate.pathname]);
 
   return (
     <div className="feed">
