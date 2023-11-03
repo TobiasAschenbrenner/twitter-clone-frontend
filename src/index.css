@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th {
+  padding: 0.5rem;
+  background-color: #1b1a13;
+  color: white;
+  border-radius: 10rem;
+}
+
+td {
+  padding: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background-color: #1b1a13;
+  border-radius: 10rem;
+}

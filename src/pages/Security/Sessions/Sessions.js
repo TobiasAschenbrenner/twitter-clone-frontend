@@ -3,6 +3,7 @@ import Container from '../Container';
 import { API_BASE_URL } from '../../../config';
 import { useNavigate } from 'react-router-dom';
 import { Authentication } from '../../../utils/Authentication';
+const id = require('uuid-readable')
 
 const SessionsPage = () => {
     const [sessions, setSessions] = useState(undefined)
@@ -65,7 +66,7 @@ const SessionsPage = () => {
                     <tbody>
                         {sessions.map(session => (
                             <tr key={session.session_id}>
-                                <td>{session.session_id}</td>
+                                <td>{id.short(session.session_id)}</td>
                                 <td>{session.last_ip}</td>
                                 <td>{new Date(session.last_used).toLocaleString()}</td>
                                 <td>{new Date(session.created_at).toLocaleString()}</td>

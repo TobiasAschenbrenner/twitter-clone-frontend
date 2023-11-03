@@ -3,6 +3,7 @@ import Container from "../Container";
 import { API_BASE_URL } from "../../../config";
 import { Authentication } from "../../../utils/Authentication";
 import { useNavigate } from "react-router-dom";
+const id = require('uuid-readable')
 
 const LogsPage = () => {
     const [logs, setLogs] = useState(undefined)
@@ -84,7 +85,7 @@ const LogsPage = () => {
                                         : "Deactivated"
                                     }
                                 </td>
-                                <td>{log.session_id || "-"}</td>
+                                <td>{log.session_id ? id.short(log.session_id) : "-"}</td>
                                 <td>{log.auth_id}</td>
                             </tr>
                         ))}
