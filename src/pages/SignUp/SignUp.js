@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 import { API_BASE_URL } from "../../config";
+import { Authentication } from "../../utils/Authentication";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -13,11 +14,11 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (isLoginForm) {
-      loginUser(email, password);
+      if (await Authentication.loginUser(email, password)) navigate("/home");
     } else {
       if (password === confirmPassword) {
         registerUser(email, password, username, displayname);
@@ -29,24 +30,10 @@ const SignUp = () => {
 
   const registerUser = async (email, password, username, displayname) => {
     try {
-      const responseOne = await fetch(`${API_BASE_URL}/v1/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!responseOne.ok) {
-        throw new Error(`HTTP error! Status: ${responseOne.status}`);
+      const jwt = await Authentication.register(email, password);
+      if (!jwt) {
+        throw new Error("Error registering user");
       }
-
-      const loggedIn = await loginUser(email, password);
-      if (!loggedIn) {
-        throw new Error("Error logging in user after registration");
-      }
-
-      const jwt = localStorage.getItem("jwt");
 
       const responseTwo = await fetch(`${API_BASE_URL}/v1/user`, {
         method: "POST",
@@ -65,26 +52,6 @@ const SignUp = () => {
       navigate("/home");
     } catch (error) {
       console.error("Error registering user:", error);
-    }
-  };
-
-  const loginUser = async (email, password) => {
-    const response = await fetch(`${API_BASE_URL}/v1/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.status === 200) {
-      const { jwt } = await response.json();
-      localStorage.setItem("jwt", jwt);
-      navigate("/home");
-      return true;
-    } else {
-      console.error("Error logging in user: Invalid email or password");
-      return false;
     }
   };
 
