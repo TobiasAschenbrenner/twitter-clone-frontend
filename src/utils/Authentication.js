@@ -39,8 +39,11 @@ export class Authentication {
             return false;
         }
 
+        this.jwt = jwt;
         localStorage.setItem("jwt", jwt);
+        this.refreshtoken = refreshtoken;
         localStorage.setItem("refreshtoken", refreshtoken);
+        this.validUntil = exp;
         localStorage.setItem("jwt_exp", exp);
         return jwt;
     }
@@ -51,6 +54,47 @@ export class Authentication {
 
     async register(email, password) {
         return await this.loginOrRegister("register", email, password);
+    }
+
+    shouldRefreshToken() {
+        if (!this.validUntil) return true;
+        return Date.now() >= this.validUntil;
+    }
+
+    async refreshJwt() {
+        const response = await fetch(`${API_BASE_URL}/v1/auth/refresh`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "refreshToken": this.refreshtoken }),
+        });
+
+        if (!response.ok) {
+            console.error("Error refreshing token");
+            return false;
+        }
+
+        const { jwt, refreshtoken, exp } = await response.json();
+        if (!jwt || !refreshtoken || !exp) {
+            console.error("Error refreshing token: Missing token or expiration");
+            return false;
+        }
+
+        this.jwt = jwt;
+        localStorage.setItem("jwt", jwt);
+        this.refreshtoken = refreshtoken;
+        localStorage.setItem("refreshtoken", refreshtoken);
+        this.validUntil = exp;
+        localStorage.setItem("jwt_exp", exp);
+        return true;
+    }
+
+    async getJwt() {
+        if (this.shouldRefreshToken()) {
+            await this.refreshJwt();
+        }
+        return this.jwt;
     }
 
 }
