@@ -15,31 +15,32 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProfile(username);
-  }, [username]);
+    const fetchProfile = async (username) => {
+      const jwt = await Authentication.getInstance().getJwt();
+      if (!jwt) navigate("/");
 
-  const fetchProfile = async (username) => {
-    const jwt = await Authentication.getInstance().getJwt();
-    if (!jwt) navigate("/");
+      try {
+        const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/v1/user/${username}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const profileData = await response.json();
+        setUserProfile(profileData);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
       }
+    };
+    
+    fetchProfile(username);
+  }, [navigate, username]);
 
-      const profileData = await response.json();
-      setUserProfile(profileData);
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-    }
-  };
 
   const updateProfile = async (updatedProfile) => {
     const jwt = await Authentication.getInstance().getJwt();

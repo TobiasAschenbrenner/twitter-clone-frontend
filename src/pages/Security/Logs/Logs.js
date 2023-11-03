@@ -9,20 +9,23 @@ const LogsPage = () => {
     const [logs, setLogs] = useState(undefined)
     const navigate = useNavigate();
 
-    
-    const fetchLogs = async () => {
-        const jwt = await Authentication.getInstance().getJwt();
-        if (!jwt) navigate("/");
-        fetch(`${API_BASE_URL}/v1/auth/logs`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
-            },
-        })
-            .then(res => res.json())
-            .then(data => setLogs(data))
-        // we're not gonna catch because i can't think of any way to make this code worse
-    }
+    useEffect(() => {
+        const fetchLogs = async () => {
+            const jwt = await Authentication.getInstance().getJwt();
+            if (!jwt) navigate("/");
+            fetch(`${API_BASE_URL}/v1/auth/logs`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${jwt}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => setLogs(data))
+            // we're not gonna catch because i can't think of any way to make this code worse
+        }
+
+        fetchLogs();
+    }, [navigate])
 
     const handleInvalidateSession = async (session_id) => {
         const jwt = await Authentication.getInstance().getJwt();
@@ -36,9 +39,6 @@ const LogsPage = () => {
         })
     }
 
-    useEffect(() => {
-        fetchLogs()
-    }, [])
 
     const actionNames = {
         "register": "Account registered",

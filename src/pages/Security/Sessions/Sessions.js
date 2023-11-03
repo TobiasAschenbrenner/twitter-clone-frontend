@@ -9,19 +9,23 @@ const SessionsPage = () => {
     const [sessions, setSessions] = useState(undefined)
     const navigate = useNavigate();
 
-    const fetchSessions = async () => {
-        const jwt = await Authentication.getInstance().getJwt();
-        if (!jwt) navigate("/");
-        fetch(`${API_BASE_URL}/v1/auth/sessions`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`,
-            },
-        })
-            .then(res => res.json())
-            .then(data => setSessions(data))
-        // we're not gonna catch because i can't think of any way to make this code worse
-    }
+    useEffect(() => {
+        const fetchSessions = async () => {
+            const jwt = await Authentication.getInstance().getJwt();
+            if (!jwt) navigate("/");
+            fetch(`${API_BASE_URL}/v1/auth/sessions`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${jwt}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => setSessions(data))
+            // we're not gonna catch because i can't think of any way to make this code worse
+        }
+
+        fetchSessions();
+    }, [navigate]);
 
     const handleInvalidateSession = async (session_id) => {
         const jwt = await Authentication.getInstance().getJwt();
@@ -37,10 +41,6 @@ const SessionsPage = () => {
     }
 
     const daysTillExpiration = (date) => Math.ceil((new Date(date) - new Date()) / (1000 * 60 * 60 * 24)) + 28;
-
-    useEffect(() => {
-        fetchSessions()
-    }, [])
 
     if (sessions === undefined) {
         return (
