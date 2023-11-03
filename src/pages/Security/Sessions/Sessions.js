@@ -35,6 +35,8 @@ const SessionsPage = () => {
         })
     }
 
+    const daysTillExpiration = (date) => Math.ceil((new Date(date) - new Date()) / (1000 * 60 * 60 * 24)) + 28;
+
     useEffect(() => {
         fetchSessions()
     }, [])
@@ -53,17 +55,25 @@ const SessionsPage = () => {
                     <thead>
                         <tr>
                             <th>Session ID</th>
+                            <th>Last IP</th>
+                            <th>Last Used</th>
                             <th>Created</th>
                             <th>Deactivate</th>
+                            <th>Expires in</th>
                         </tr>
                     </thead>
                     <tbody>
                         {sessions.map(session => (
                             <tr key={session.session_id}>
                                 <td>{session.session_id}</td>
+                                <td>{session.last_ip}</td>
+                                <td>{new Date(session.last_used).toLocaleString()}</td>
                                 <td>{new Date(session.created_at).toLocaleString()}</td>
                                 <td>
                                     <button onClick={() => handleInvalidateSession(session.session_id)}>{session.is_self ? "Sign out" : "🗑"}</button>
+                                </td>
+                                <td>
+                                    {daysTillExpiration(session.created_at)} days
                                 </td>
                             </tr>
                         ))}
