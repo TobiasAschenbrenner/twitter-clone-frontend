@@ -39,21 +39,7 @@ const SignUp = () => {
       if (!jwt) {
         throw new Error("Error registering user");
       }
-
-      const responseTwo = await fetch(`${API_BASE_URL}/v1/user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({ username, displayname }),
-      });
-
-      if (!responseTwo.ok) {
-        throw new Error(`HTTP error! Status: ${responseTwo.status}`);
-      }
-
-      console.log("User registered successfully");
+      await Authentication.getInstance().createUser(username, displayname);
       navigate("/home");
     } catch (error) {
       console.error("Error registering user:", error);
