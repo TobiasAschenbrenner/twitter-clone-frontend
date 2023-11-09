@@ -65,7 +65,7 @@ function Feed({ extendedFeed }) {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          setTweets(data || []);
+          setTweets(data.data || []);
           setLoading(false);
         })
         .catch((error) => console.error(error));

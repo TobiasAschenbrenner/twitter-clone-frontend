@@ -4,6 +4,7 @@ import "./UserSearch.scss";
 import UserSearchResults from "./UserSearchResults";
 import { useNavigate } from "react-router-dom";
 import { Authentication } from "../../utils/Authentication";
+import { API_BASE_URL } from "../../config";
 
 const UserSearch = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -21,7 +22,6 @@ const UserSearch = () => {
     if (!jwt) navigate("/");
 
     if (e.target.value.trim() !== "") {
-      const API_BASE_URL = "https://api.chirp.koenidv.de";
       const response = await fetch(
         `${API_BASE_URL}/v1/search/users/${e.target.value}`,
         {
